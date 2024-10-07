@@ -21,6 +21,9 @@
          "@/*": ["./*"],
          "@/Theme/*": ["./utils/Theme/*"],
          "@/reduxStore/*": ["./utils/redux/*"],
+         "@DBConnect": ["./utils/dbConnect.ts"],
+         "@Types/*": ["./types/*"],
+         "@Models/*": ["./models/*"],
          "@images/*": ["./assets/images/*"]
       }
    },
