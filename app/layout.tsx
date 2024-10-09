@@ -9,9 +9,10 @@ import './globals.css'
 
 // Components
 import Navbar from '@/components/Navbar/Navbar'
+import Footer from '@/components/Footer/Footer'
 
 export const metadata: Metadata = {
-   title: 'Computer Store Application',
+   title: 'Computer Store | Főoldal',
    description: 'Reworked version of my React based ComputerStoreMERN project with Next.js (app router)',
    authors: {
       name: 'Tamás Nagy',
@@ -32,7 +33,7 @@ export default function RootLayout({
                   <GlobalThemeProvider>
                      <Navbar />
                      {children}
-                     <footer>FOOTER</footer>
+                     <Footer />
                   </GlobalThemeProvider>
                </StoreProvider>
             </AppRouterCacheProvider>
