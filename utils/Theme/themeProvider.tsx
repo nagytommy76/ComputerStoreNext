@@ -1,7 +1,7 @@
 'use client'
 import { ThemeProvider } from '@mui/material/styles'
 import { Global, css } from '@emotion/react'
-import { darkTheme /*, lightTheme */ } from './theme'
+import { darkTheme, lightTheme } from './theme'
 import { useAppSelector } from '@/reduxStore/hooks'
 
 const lightGlobalTheme = {
@@ -65,11 +65,9 @@ const lgihtGlobalStyles = css(
 export const GlobalThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
-      <>
-         <ThemeProvider theme={darkTheme}>
-            <Global styles={isDarkTheme ? darkGlobalStyles : lgihtGlobalStyles} />
-            {children}
-         </ThemeProvider>
-      </>
+      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+         <Global styles={isDarkTheme ? darkGlobalStyles : lgihtGlobalStyles} />
+         {children}
+      </ThemeProvider>
    )
 }
