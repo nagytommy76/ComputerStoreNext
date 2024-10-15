@@ -24,7 +24,8 @@
          "@DBConnect": ["./utils/dbConnect.ts"],
          "@Types/*": ["./types/*"],
          "@Models/*": ["./models/*"],
-         "@images/*": ["./assets/images/*"]
+         "@images/*": ["./assets/images/*"],
+         "@ShopComponents/*": ["./components/Shop/*"]
       }
    },
    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
