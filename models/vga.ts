@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import { Schema, model } from 'mongoose'
 import { VgaType } from './types/vgaTypes'
 import { ChartData, ProductRatingValuesSchema } from './helper'
@@ -36,4 +37,4 @@ const VgaSchema = new Schema<VgaType>({
    typeCode: String,
 })
 
-export const VgaProduct = model<VgaType>('VgaProduct', VgaSchema)
+export const VgaProduct = mongoose.models.VgaProduct || model<VgaType>('VgaProduct', VgaSchema)
