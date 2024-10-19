@@ -1,41 +1,27 @@
 import React from 'react'
-import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { BaseFetchedProductType } from '@Types/productType'
 
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import { CardStyle } from './Styles'
 
 import CardFooter from './Footer/CardFooter'
+const CardImage = dynamic(() => import('./Includes/CardImage'), { ssr: false })
 
 export default function ProductCard({
    product,
    productType,
+   fallbackImage,
 }: {
    product: BaseFetchedProductType
    productType: string
+   fallbackImage: string
 }) {
    return (
-      <Card
-         sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-
-            position: 'relative',
-            height: 390,
-            maxWidth: 345,
-            width: '250px',
-            transition: 'transform 0.1s',
-            '&:hover': {
-               transform: 'scale(1.025) translateY(-5px)',
-            },
-            [`@media(max-width: 920px`]: {
-               height: '390px',
-            },
-         }}
-      >
+      <Card sx={CardStyle}>
          <Link style={{ cursor: 'pointer' }} href={`/shop/${productType}/${product._id}`}>
             <div
                style={{
@@ -43,12 +29,10 @@ export default function ProductCard({
                   height: '175px',
                }}
             >
-               <Image
-                  style={{ objectFit: 'cover' }}
-                  height={175}
-                  width={250}
-                  src={product.pictureUrls[0]}
-                  alt={product.typeCode}
+               <CardImage
+                  imageSrc={product.pictureUrls[0]}
+                  typeCode={product.typeCode}
+                  fallbackImage={fallbackImage}
                />
             </div>
             <CardContent>
