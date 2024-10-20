@@ -1,11 +1,6 @@
 import type { Metadata } from 'next'
-
-// REDUX
-import StoreProvider from '@/utils/redux/StoreProvider'
-// THEME
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import { GlobalThemeProvider } from '@/Theme/themeProvider'
 import './globals.css'
+import Providers from './providers'
 
 // Components
 import Navbar from '@/components/Navbar/Navbar'
@@ -28,15 +23,11 @@ export default function RootLayout({
    return (
       <html lang='hu'>
          <body>
-            <AppRouterCacheProvider>
-               <StoreProvider>
-                  <GlobalThemeProvider>
-                     <Navbar />
-                     {children}
-                     <Footer />
-                  </GlobalThemeProvider>
-               </StoreProvider>
-            </AppRouterCacheProvider>
+            <Providers>
+               <Navbar />
+               {children}
+               <Footer />
+            </Providers>
          </body>
       </html>
    )
