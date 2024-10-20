@@ -1,8 +1,11 @@
+import Typography from '@mui/material/Typography'
+
 export default function Home() {
-   console.log('SZERVER')
    return (
-      <div>
-         <h1>Szerver komponens</h1>
+      <div style={{ height: '150vh' }}>
+         <Typography variant='h1' color='allVariants.color'>
+            Szerver komponens. FŐOLDAL
+         </Typography>
       </div>
    )
 }
