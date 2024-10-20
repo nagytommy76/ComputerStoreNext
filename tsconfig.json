@@ -25,7 +25,8 @@
          "@Types/*": ["./types/*"],
          "@Models/*": ["./models/*"],
          "@images/*": ["./assets/images/*"],
-         "@ShopComponents/*": ["./components/Shop/*"]
+         "@ShopComponents/*": ["./components/Shop/*"],
+         "@ServerActions/*": ["./app/actions/*"]
       }
    },
    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
