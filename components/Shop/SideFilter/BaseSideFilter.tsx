@@ -1,4 +1,5 @@
 'use client'
+import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 
 import Typography from '@mui/material/Typography'
 import { StyledFilter } from './Styles'
@@ -8,16 +9,26 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-import getVga from '@ServerActions/getVgaActions'
-import { filterVgaData } from '@ServerActions/helpers'
+// import getVga from '@ServerActions/getVgaActions'
+// import { filterVgaData } from '@ServerActions/helpers'
 
 // import BaseSelect from './Base/BaseSelect'
 
 const BaseSideFilter = () => {
-   const handleChange = async (event: SelectChangeEvent) => {
-      console.log(event.target.value)
-      const vga = await getVga({ ...filterVgaData, byManufacturer: event.target.value })
-      console.log(vga)
+   const searchParams = useSearchParams()
+   const pathname = usePathname()
+   const router = useRouter()
+
+   // const handleChange = async (event: SelectChangeEvent) => {
+   //    console.log(event.target.value)
+   //    const vga = await getVga({ ...filterVgaData, byManufacturer: event.target.value })
+   //    console.log(vga)
+   // }
+   const test = (event: SelectChangeEvent) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set('manufacturer', event.target.value)
+
+      router.push(pathname + '?' + params.toString())
    }
 
    return (
@@ -31,7 +42,7 @@ const BaseSideFilter = () => {
                id='demo-simple-select'
                value={'ASUS'}
                label='Gyártó'
-               onChange={handleChange}
+               onChange={test}
             >
                <MenuItem value={'ASUS'}>ASUS</MenuItem>
                <MenuItem value={'MSI'}>MSI</MenuItem>
