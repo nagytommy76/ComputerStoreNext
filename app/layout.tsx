@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Providers from './providers'
+import Providers from './utils/Providers/providers'
 
 // Components
 import Navbar from '@/components/Navbar/Navbar'
