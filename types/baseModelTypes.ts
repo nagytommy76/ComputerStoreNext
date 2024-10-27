@@ -1,7 +1,5 @@
-import { ObjectId, Document } from 'mongoose'
-
-export interface BaseProductType extends Document {
-   _id: ObjectId | string
+export interface BaseProductType {
+   _id: string
    itemNumber?: string
    type: string
    typeCode?: string
@@ -14,7 +12,7 @@ export interface BaseProductType extends Document {
 }
 
 export type RatingValues = {
-   _id: ObjectId
+   _id: string
    rating: number
    comment?: string
    ratedAt: Date
@@ -25,7 +23,7 @@ export type RatingValues = {
 }
 
 export type CommentAnswerType = {
-   _id?: ObjectId
+   _id: string
    userId: string
    userName: string
    answer: string
@@ -34,12 +32,13 @@ export type CommentAnswerType = {
 }
 
 export type ResponsesType = {
-   _id?: string | ObjectId
+   _id: string
    userId?: string
    isLike: boolean
 }
 
 export type ChartDataType = {
+   _id: string
    price: number
    timestamp: number
 }
