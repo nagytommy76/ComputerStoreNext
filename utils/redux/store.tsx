@@ -1,11 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import ThemeSlice from './slices/ThemeSlice'
+import ProductsSlice from './slices/ProductsSlice'
+import BaseFilterDataSlice from './slices/Filter/BaseFilterDataSlice'
+import VgaFilterSlice from './slices/Filter/VgaFilterSlice'
 
 export const makeStore = () => {
    return configureStore({
       reducer: {
          theme: ThemeSlice,
+         products: ProductsSlice,
+         filter: BaseFilterDataSlice,
+         vgaFilter: VgaFilterSlice,
       },
    })
 }
