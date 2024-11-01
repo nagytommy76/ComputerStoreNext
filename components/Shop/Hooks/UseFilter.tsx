@@ -19,24 +19,18 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
       return (await response).filterData
    }
 
-   const {
-      data: filterData,
-      isError,
-      error,
-   } = useQuery({
-      queryKey: ['filterData'],
-      queryFn: queryFunction,
+   useQuery(['filterData', productType], queryFunction, {
+      onSuccess: (filterData) => {
+         if (filterData) {
+            dispatch(setPriceRange([filterData.minPrice, filterData.maxPrice]))
+            dispatch(setAllManufacturer(filterData.allManufacturers))
+            dispatch(setMinPrice(filterData.minPrice))
+            dispatch(setMaxPrice(filterData.maxPrice))
+            dispatch(setAllWarranties(filterData.allWarranties))
+            if (extraFilterDispatches) extraFilterDispatches(filterData)
+         }
+      },
    })
-
-   if (!isError && filterData) {
-      // console.log(filterData)
-      // console.log(filterData.allManufacturer)
-      dispatch(setAllManufacturer(filterData.allManufacturer))
-      dispatch(setMinPrice(filterData.minPrice))
-      dispatch(setMaxPrice(filterData.maxPrice))
-      dispatch(setPriceRange([filterData.minPrice, filterData.maxPrice]))
-      dispatch(setAllWarranties(filterData.allWarranties))
-   } else console.log(error)
 }
 
 export default useFilter
