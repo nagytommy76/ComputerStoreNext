@@ -1,5 +1,7 @@
 'use client'
 import React from 'react'
+import { useAppDispatch } from '@/reduxStore/hooks'
+import type { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
 import MenuItem from '@mui/material/MenuItem'
 import InputLabel from '@mui/material/InputLabel'
@@ -16,25 +18,25 @@ export default function BaseSelect({
    postFix,
    children,
 }: Props) {
+   const dispatch = useAppDispatch()
    const handleChange = (event: SelectChangeEvent) => {
-      setSelectedDispatchValue(event.target.value)
+      dispatch(setSelectedDispatchValue(event.target.value))
    }
 
    return (
-      <FormControl variant='filled' fullWidth>
+      <FormControl variant='filled' sx={{ width: '85%', marginBottom: '.5rem' }}>
          <InputLabel id='select-label'>{labelText}</InputLabel>
          <Select
             labelId='select-label'
             id='select'
             value={selectedOption as string}
-            label='Age'
+            label={labelText}
             onChange={handleChange}
          >
             {children ? children : <MenuItem value='all'>Összes</MenuItem>}
-
             {allOption.map((option, index) => (
                <MenuItem key={index} value={option}>
-                  {option.toString().toUpperCase()}
+                  {option.toString()}
                   {postFix}
                </MenuItem>
             ))}
@@ -49,7 +51,7 @@ type Props = {
    helperText: string
    allOption: string[] | number[]
    selectedOption: string | number
-   setSelectedDispatchValue: (value: string) => void
+   setSelectedDispatchValue: ActionCreatorWithPayload<string>
    postFix?: string
    children?: React.ReactNode
 }
