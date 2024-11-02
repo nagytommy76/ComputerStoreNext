@@ -1,54 +1,24 @@
 'use client'
-import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 
 import Typography from '@mui/material/Typography'
 import { StyledFilter } from './Styles'
 
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import ByManufacturer from './Base/ByManufacturer'
+import ByWarranity from './Base/ByWarranity'
+import PriceRange from './Base/PriceRange'
+import OrderByPrice from './Base/OrderByPrice'
 
-// import getVga from '@ServerActions/getVgaActions'
-// import { filterVgaData } from '@ServerActions/helpers'
-
-// import BaseSelect from './Base/BaseSelect'
-
-const BaseSideFilter = () => {
-   const searchParams = useSearchParams()
-   const pathname = usePathname()
-   const router = useRouter()
-
-   // const handleChange = async (event: SelectChangeEvent) => {
-   //    console.log(event.target.value)
-   //    const vga = await getVga({ ...filterVgaData, byManufacturer: event.target.value })
-   //    console.log(vga)
-   // }
-   const test = (event: SelectChangeEvent) => {
-      const params = new URLSearchParams(searchParams.toString())
-      params.set('manufacturer', event.target.value)
-
-      router.push(pathname + '?' + params.toString())
-   }
-
+const BaseSideFilter = ({ children }: { children: React.ReactNode }) => {
    return (
       <StyledFilter elevation={0} square>
-         <Typography variant='h5'>Szűrés</Typography>
-         <FormControl>
-            <InputLabel id='demo-simple-select-label'>Age</InputLabel>
-            <Select
-               fullWidth
-               labelId='demo-simple-select-label'
-               id='demo-simple-select'
-               value={'ASUS'}
-               label='Gyártó'
-               onChange={test}
-            >
-               <MenuItem value={'ASUS'}>ASUS</MenuItem>
-               <MenuItem value={'MSI'}>MSI</MenuItem>
-               <MenuItem value={'EVGA'}>EVGA</MenuItem>
-            </Select>
-         </FormControl>
+         <Typography variant='h5' gutterBottom>
+            Szűrés
+         </Typography>
+         <OrderByPrice />
+         <ByManufacturer />
+         <ByWarranity />
+         <PriceRange />
+         {children}
       </StyledFilter>
    )
 }
