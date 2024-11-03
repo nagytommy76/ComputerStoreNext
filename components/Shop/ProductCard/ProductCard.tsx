@@ -1,12 +1,11 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import type { BaseFetchedProductType } from '@Types/productType'
+import type { BaseFetchedProductType } from '@/types/productType'
 
-import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
-import { CardStyle } from './Styles'
+import { CardStyle, ImageContent } from './Styles'
 
 import CardFooter from './Footer/CardFooter'
 const CardImage = dynamic(() => import('./Includes/CardImage'), { ssr: false })
@@ -21,20 +20,15 @@ export default function ProductCard({
    fallbackImage: string
 }) {
    return (
-      <Card sx={CardStyle}>
+      <CardStyle>
          <Link style={{ cursor: 'pointer' }} href={`/shop/${productType}/${product._id}`}>
-            <div
-               style={{
-                  width: '100%',
-                  height: '175px',
-               }}
-            >
+            <ImageContent>
                <CardImage
                   imageSrc={product.pictureUrls[0]}
                   typeCode={product.typeCode}
                   fallbackImage={fallbackImage}
                />
-            </div>
+            </ImageContent>
             <CardContent>
                <Typography gutterBottom variant='subtitle1' component='div'>
                   {product.manufacturer} {product.type}
@@ -45,6 +39,6 @@ export default function ProductCard({
             </CardContent>
          </Link>
          <CardFooter />
-      </Card>
+      </CardStyle>
    )
 }
