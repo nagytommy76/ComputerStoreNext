@@ -1,39 +1,38 @@
 import dbConnect from '@DBConnect'
 import { VgaProduct } from '@Models/vga'
-import type { BaseProductType } from '@Types/baseModelTypes'
 import { type NextRequest } from 'next/server'
+
+import BaseProductRoute, { convertSearchParamsToQueryObject } from '@/Services/BaseProductRoute'
 
 export async function GET(request: NextRequest) {
    await dbConnect()
-   const paramsObject: { [key: string]: string } = {}
 
-   const searchParams = request.nextUrl.searchParams
-   searchParams.forEach((value, key) => {
-      paramsObject[key] = value
-   })
+   const paramsObject = convertSearchParamsToQueryObject(request.nextUrl.searchParams)
 
-   const selectedGpuMan = paramsObject['byManufacturer'] == 'all' ? '' : paramsObject['byManufacturer']
-   const orderByPrice: 'asc' | 'desc' = paramsObject['orderBy'] == 'asc' ? 'asc' : 'desc'
-   const priceRange = paramsObject['priceRange'].split(',').map(Number)
-   const warranty =
-      paramsObject['selectedWarranty'] == 'all'
-         ? null
-         : { 'details.warranity': paramsObject['selectedWarranty'] }
-   const productName = paramsObject['productName'] || ''
+   // VGA specific
+   const selectedPciType = paramsObject['pciType'] == 'all' ? '' : paramsObject['pciType']
+   const selectedVramType = paramsObject['vramType'] == 'all' ? '' : paramsObject['vramType']
+   const baseClockRange = paramsObject['baseClock'].split(',')
+   const boostClockRange = paramsObject['boostClock'].split(',')
+   const selectedGpuMan = paramsObject['gpuManufacturer'] == 'all' ? '' : paramsObject['gpuManufacturer']
+   const selectedLength = paramsObject['length'].split(',')
+   const selectedPowerConsuption = paramsObject['tdp'].split(',')
+   const selectedVramBandwidth = paramsObject['vramBandwidth'].split(',')
+   const selectedVramCapRange = paramsObject['vramCapacity'].split(',')
 
-   const products = await VgaProduct.find<BaseProductType>({
-      manufacturer: new RegExp(selectedGpuMan, 'i'),
-      $or: [
-         { type: new RegExp(productName, 'i') },
-         { typeCode: new RegExp(productName, 'i') },
-         { itemNumber: new RegExp(productName, 'i') },
-      ],
-      price: { $gte: priceRange[0], $lte: priceRange[1] },
-      ...warranty,
-   })
-      .select('itemNumber price manufacturer type typeCode pictureUrls ratingValues._id')
-      .sort({ price: orderByPrice })
-      .lean()
+   const extraQueryParameters = {
+      'details.gpuBaseClock': { $gte: baseClockRange[0], $lte: baseClockRange[1] },
+      'details.gpuPeakClock': { $gte: boostClockRange[0], $lte: boostClockRange[1] },
+      'details.length': { $gte: selectedLength[0], $lte: selectedLength[1] },
+      'details.powerConsuption': { $gte: selectedPowerConsuption[0], $lte: selectedPowerConsuption[1] },
+      'details.vramBandwidth': { $gte: selectedVramBandwidth[0], $lte: selectedVramBandwidth[1] },
+      'details.vramCapacity': { $gte: selectedVramCapRange[0], $lte: selectedVramCapRange[1] },
+      'details.gpuManufacturer': new RegExp(selectedGpuMan, 'i'),
+      'details.pcieType': new RegExp(selectedPciType, 'i'),
+      'details.vramType': new RegExp(selectedVramType, 'i'),
+   }
+
+   const products = await BaseProductRoute(request.nextUrl.searchParams, VgaProduct, extraQueryParameters)
 
    return new Response(JSON.stringify({ products }))
 }
