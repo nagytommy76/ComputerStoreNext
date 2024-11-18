@@ -1,5 +1,5 @@
 'use client'
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClientProvider } from '@tanstack/react-query'
 import getQueryClient from './queryClient'
 
@@ -22,6 +22,7 @@ export default function Providers({
 
    return (
       <QueryClientProvider client={queryClient}>
+         <ReactQueryDevtools initialIsOpen={false} />
          <AppRouterCacheProvider>
             <StoreProvider>
                <GlobalThemeProvider>{children}</GlobalThemeProvider>
