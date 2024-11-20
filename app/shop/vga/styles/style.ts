@@ -1,10 +1,9 @@
-export const CardGridContainerStyle = {
+export const ShopContainerStyle = {
+   width: '100%',
    minHeight: '100vh',
-   display: 'grid',
-   width: '85%',
-   rowGap: '3rem',
-   columnGap: '2rem',
-   justifyContent: 'center',
-   gridAutoRows: '380px',
-   gridTemplateColumns: 'repeat(auto-fill, minmax(225px, 1fr))',
+   marginTop: '1.5rem',
+   marginBottom: '1.5rem',
+   display: 'flex',
+   flexDirection: 'row' as const,
+   justifyContent: 'space-between',
 }
