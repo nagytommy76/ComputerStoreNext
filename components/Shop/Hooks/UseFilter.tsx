@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/reduxStore/hooks'
-import { useQuery } from '@tanstack/react-query'
 
 import {
    setAllManufacturer,
@@ -11,30 +10,23 @@ import {
 } from '@/reduxStore/slices/Filter/BaseFilterDataSlice'
 import type { FilterTypes } from '@/types/filterTypes'
 
-const useFilter = (productType: string, extraFilterDispatches?: (params: any) => void) => {
+const useFilter = (filterData: FilterTypes, extraFilterDispatches?: (params: any) => void) => {
    const dispatch = useAppDispatch()
-
-   const queryFunction = async () => {
-      const filteredData = await fetch(`/api/${productType}/filter-data`, { method: 'GET' })
-      const response = (await filteredData.json()) as Promise<{ filterData: FilterTypes }>
-      return (await response).filterData
-   }
-
-   const { data } = useQuery({
-      queryKey: [`filter-data-${productType}`, productType],
-      queryFn: queryFunction,
-   })
+   const [isFetched, setIsFetched] = useState(false)
 
    useEffect(() => {
-      if (data) {
-         dispatch(setPriceRange([data.minPrice, data.maxPrice]))
-         dispatch(setAllManufacturer(data.allManufacturers))
-         dispatch(setMinPrice(data.minPrice))
-         dispatch(setMaxPrice(data.maxPrice))
-         dispatch(setAllWarranties(data.allWarranties))
-         if (extraFilterDispatches) extraFilterDispatches(data)
+      if (filterData) {
+         setIsFetched(true)
+         dispatch(setPriceRange([filterData.minPrice, filterData.maxPrice]))
+         dispatch(setAllManufacturer(filterData.allManufacturers))
+         dispatch(setMinPrice(filterData.minPrice))
+         dispatch(setMaxPrice(filterData.maxPrice))
+         dispatch(setAllWarranties(filterData.allWarranties))
+         if (extraFilterDispatches) extraFilterDispatches(filterData)
       }
-   }, [data, dispatch])
+   }, [filterData, dispatch])
+
+   return isFetched
 }
 
 export default useFilter
