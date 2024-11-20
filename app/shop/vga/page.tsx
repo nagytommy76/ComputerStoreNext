@@ -1,18 +1,25 @@
 import { Metadata } from 'next'
-
 import { ShopContainerStyle } from './styles/style'
+import VgaShopPage from '@/components/Shop/Vga/VgaShopPage'
+import type { FilterTypes } from '@/types/filterTypes'
 
 export const metadata: Metadata = {
    title: 'Computer Store | Videókártya',
    description: 'VGA products',
 }
 
-import VgaShopPage from '@/components/Shop/Vga/VgaShopPage'
+async function getAllVgaFilter() {
+   const filteredData = await fetch(`${process.env.APP_URL}/api/vga/filter-data`, { method: 'GET' })
+   const response = (await filteredData.json()) as Promise<{ filterData: FilterTypes }>
+   return (await response).filterData
+}
 
 export default async function page() {
+   const vgaFilterData = await getAllVgaFilter()
+
    return (
       <section style={ShopContainerStyle}>
-         <VgaShopPage />
+         <VgaShopPage vgaFilterData={vgaFilterData} />
       </section>
    )
 }
