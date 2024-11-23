@@ -1,11 +1,14 @@
-export type FilterTypes = {
+export interface FilterTypes {
    orderBy: string
-   minPrice: number
-   maxPrice: number
    priceRange: number[]
-   allManufacturer: string[]
    selectedManufacturer: string
    productName: string
-   allWarranties: string[]
    selectedWarranty: string
+}
+
+export interface ProductFilterType extends FilterTypes {
+   minPrice: number
+   maxPrice: number
+   allManufacturers: string[]
+   allWarranties: string[]
 }
