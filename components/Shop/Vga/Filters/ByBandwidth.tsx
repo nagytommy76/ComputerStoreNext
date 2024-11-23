@@ -1,3 +1,4 @@
+'use client'
 import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedVramBandwidth } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 

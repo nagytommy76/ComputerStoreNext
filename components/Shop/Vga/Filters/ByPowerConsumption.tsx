@@ -1,3 +1,4 @@
+'use client'
 import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedPowerConsuption } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 

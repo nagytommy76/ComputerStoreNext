@@ -1,3 +1,4 @@
+'use client'
 import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedVramType } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 import BaseVramtype from '../../SideFilter/Base/BaseSelect'

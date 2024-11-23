@@ -1,3 +1,4 @@
+'use client'
 import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedVramCapRange } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 

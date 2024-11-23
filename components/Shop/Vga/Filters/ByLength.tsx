@@ -1,3 +1,4 @@
+'use client'
 import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedLength } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 

@@ -1,3 +1,4 @@
+'use client'
 import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedBoostClockRange } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 

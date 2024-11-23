@@ -1,3 +1,4 @@
+'use client'
 import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedPcie } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 import BasePciEType from '../../SideFilter/Base/BaseSelect'
