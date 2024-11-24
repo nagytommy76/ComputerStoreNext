@@ -4,8 +4,8 @@ import { setSelectedVramCapRange } from '@/reduxStore/slices/Filter/VgaFilterSli
 
 import BaseCapacity from '../../SideFilter/Base/BaseSlider'
 
-const ByBandwidth = () => {
-   const { vramCapacitiyRange, selectedVramCapRange } = useAppSelector((state) => state.vgaFilter)
+const ByBandwidth = ({ vramCapacitiyRange }: { vramCapacitiyRange: number[] }) => {
+   const { selectedVramCapRange } = useAppSelector((state) => state.vgaFilter)
    return (
       <BaseCapacity
          range={vramCapacitiyRange}

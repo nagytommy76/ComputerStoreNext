@@ -3,8 +3,8 @@ import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedVramType } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 import BaseVramtype from '../../SideFilter/Base/BaseSelect'
 
-const ByVramType = () => {
-   const { vramTypes, selectedVramType } = useAppSelector((state) => state.vgaFilter)
+const ByVramType = ({ vramTypes }: { vramTypes: string[] }) => {
+   const { selectedVramType } = useAppSelector((state) => state.vgaFilter)
 
    return (
       <BaseVramtype

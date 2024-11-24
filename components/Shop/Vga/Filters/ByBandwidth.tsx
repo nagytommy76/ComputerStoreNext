@@ -4,8 +4,8 @@ import { setSelectedVramBandwidth } from '@/reduxStore/slices/Filter/VgaFilterSl
 
 import BaseBandwidth from '../../SideFilter/Base/BaseSlider'
 
-const ByBandwidth = () => {
-   const { vramBandwidths, selectedVramBandwidth } = useAppSelector((state) => state.vgaFilter)
+const ByBandwidth = ({ vramBandwidths }: { vramBandwidths: number[] }) => {
+   const { selectedVramBandwidth } = useAppSelector((state) => state.vgaFilter)
    return (
       <BaseBandwidth
          range={vramBandwidths}

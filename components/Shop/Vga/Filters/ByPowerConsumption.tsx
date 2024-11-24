@@ -4,8 +4,8 @@ import { setSelectedPowerConsuption } from '@/reduxStore/slices/Filter/VgaFilter
 
 import BasePowerCon from '../../SideFilter/Base/BaseSlider'
 
-const ByPowerConsumption = () => {
-   const { powerConsuptions, selectedPowerConsuption } = useAppSelector((state) => state.vgaFilter)
+const ByPowerConsumption = ({ powerConsuptions }: { powerConsuptions: number[] }) => {
+   const { selectedPowerConsuption } = useAppSelector((state) => state.vgaFilter)
    return (
       <BasePowerCon
          range={powerConsuptions}

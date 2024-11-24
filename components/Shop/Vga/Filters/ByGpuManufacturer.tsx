@@ -4,8 +4,8 @@ import { setSelectedGpuManufacturer } from '@/reduxStore/slices/Filter/VgaFilter
 
 import BaseGpuManufacturerSelect from '../../SideFilter/Base/BaseSelect'
 
-const ByGpuManufacturerSelect = () => {
-   const { gpuManufacturers, selectedGpuMan } = useAppSelector((state) => state.vgaFilter)
+const ByGpuManufacturerSelect = ({ gpuManufacturers }: { gpuManufacturers: string[] }) => {
+   const { selectedGpuMan } = useAppSelector((state) => state.vgaFilter)
 
    return (
       <BaseGpuManufacturerSelect

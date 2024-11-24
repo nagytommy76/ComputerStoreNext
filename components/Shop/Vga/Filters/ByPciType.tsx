@@ -3,8 +3,8 @@ import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedPcie } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 import BasePciEType from '../../SideFilter/Base/BaseSelect'
 
-const ByPciEType = () => {
-   const { pcieTypes, selectedPcie } = useAppSelector((state) => state.vgaFilter)
+const ByPciEType = ({ pcieTypes }: { pcieTypes: string[] }) => {
+   const { selectedPcie } = useAppSelector((state) => state.vgaFilter)
 
    return (
       <BasePciEType

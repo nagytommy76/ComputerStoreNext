@@ -4,8 +4,8 @@ import { setSelectedLength } from '@/reduxStore/slices/Filter/VgaFilterSlice'
 
 import BaseLengthRange from '../../SideFilter/Base/BaseSlider'
 
-const ByLength = () => {
-   const { lengths, selectedLength } = useAppSelector((state) => state.vgaFilter)
+const ByLength = ({ lengths }: { lengths: number[] }) => {
+   const { selectedLength } = useAppSelector((state) => state.vgaFilter)
    return (
       <BaseLengthRange
          range={lengths}

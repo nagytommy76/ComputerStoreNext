@@ -4,8 +4,8 @@ import { setSelectedBoostClockRange } from '@/reduxStore/slices/Filter/VgaFilter
 
 import BaseFrequencySlider from '../../SideFilter/Base/BaseSlider'
 
-const ByBoostClock = () => {
-   const { boostClockRange, selectedBoostClockRange } = useAppSelector((state) => state.vgaFilter)
+const ByBoostClock = ({ boostClockRange }: { boostClockRange: number[] }) => {
+   const { selectedBoostClockRange } = useAppSelector((state) => state.vgaFilter)
    return (
       <BaseFrequencySlider
          range={boostClockRange}
