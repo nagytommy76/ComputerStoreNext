@@ -1,28 +1,29 @@
-export interface VgaFilterType {
-   gpuManufacturers: string[]
+export interface VgaFilterSlice {
    selectedGpuMan: string
-
-   baseClockRange: number[]
    selectedBaseClockRange: number[]
-
-   boostClockRange: number[]
    selectedBoostClockRange: number[]
-
-   pcieTypes: string[]
    selectedPcie: string
-
-   vramCapacitiyRange: number[]
    selectedVramCapRange: number[]
-
-   vramTypes: string[]
    selectedVramType: string
-
-   vramBandwidths: number[]
    selectedVramBandwidth: number[]
-
-   powerConsuptions: number[]
    selectedPowerConsuption: number[]
-
-   lengths: number[]
    selectedLength: number[]
+}
+
+export interface VgaFilterType {
+   gpuManufacturer: string[]
+   pciType: string[]
+   vramType: string[]
+   minBaseClock: number
+   maxBaseClock: number
+   minBoostClock: number
+   maxBoostClock: number
+   minLength: number
+   maxLength: number
+   minTdp: number
+   maxTdp: number
+   minVramBandwidth: number
+   maxVramBandwidth: number
+   minVramCapacity: number
+   maxVramCapacity: number
 }
