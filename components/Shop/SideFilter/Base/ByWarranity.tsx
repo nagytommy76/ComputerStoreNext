@@ -1,11 +1,12 @@
+'use client'
 import dynamic from 'next/dynamic'
 import { useAppSelector } from '@/reduxStore/hooks'
 import { setSelectedWarranty } from '@/reduxStore/slices/Filter/BaseFilterDataSlice'
 
 const BaseSelect = dynamic(() => import('../Base/BaseSelect'))
 
-const ByWarranity = () => {
-   const { allWarranties, selectedWarranty } = useAppSelector((state) => state.filter)
+const ByWarranity = ({ allWarranties }: { allWarranties: string[] }) => {
+   const { selectedWarranty } = useAppSelector((state) => state.filter)
 
    return (
       <BaseSelect

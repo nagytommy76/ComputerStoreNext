@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react'
 import { Slider, FormLabel, FormControl } from '@mui/material'
 
@@ -5,9 +6,9 @@ import { useAppSelector, useAppDispatch } from '@/reduxStore/hooks'
 import { setPriceRange } from '@/reduxStore/slices/Filter/BaseFilterDataSlice'
 import { InputContainer } from '../Styles'
 
-const PriceRange: React.FC = () => {
+const PriceRange: React.FC<{ minPrice: number; maxPrice: number }> = ({ maxPrice, minPrice }) => {
    const dispatch = useAppDispatch()
-   const { minPrice, maxPrice, priceRange } = useAppSelector((state) => state.filter)
+   const { priceRange } = useAppSelector((state) => state.filter)
    const [localState, setLocalState] = useState<number[]>([minPrice, 5000000])
 
    useEffect(() => {
