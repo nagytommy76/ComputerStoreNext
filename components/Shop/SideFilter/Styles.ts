@@ -1,3 +1,4 @@
+'use client'
 import styled from '@emotion/styled'
 import Paper from '@mui/material/Paper'
 
@@ -18,4 +19,12 @@ export const StyledFilter = styled(Paper)({
       height: '100%',
       marginBottom: '2.5rem',
    },
+})
+
+export const InputContainer = styled('div')({
+   width: '80%',
+   display: 'flex',
+   flexDirection: 'column',
+   alignItems: 'flex-start',
+   margin: '0.7rem 0',
 })
