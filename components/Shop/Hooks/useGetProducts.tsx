@@ -1,18 +1,27 @@
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useAppSelector, useAppDispatch } from '@/reduxStore/hooks'
 import { setProducts } from '@/reduxStore/slices/ProductsSlice'
 
 import type { BaseFetchedProductType } from '@/types/productType'
+import type { VgaFilterSlice } from '@/components/Shop/Vga/types'
 
-export default function useGetProducts(productType: string = 'vga', extraQueryParameters: string = '') {
+export default function useGetProducts(
+   productType: string,
+   productFilter: VgaFilterSlice,
+   extraQueryParameters: string = '',
+   enabled: boolean = false
+) {
    const dispatch = useAppDispatch()
    const filterOptions = useAppSelector((state) => state.filter)
 
    const queryFunction = async () => {
       const response = await fetch(
-         `/api/${productType}/get-all-vga?orderBy=${filterOptions.orderBy}&byManufacturer=${
-            filterOptions.selectedManufacturer
-         }&priceRange=${filterOptions.priceRange}&selectedWarranty=${
+         `/api/${productType}/get-all-vga?page=${filterOptions.page}&perPage=${
+            filterOptions.perPage
+         }&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${
+            filterOptions.priceRange
+         }&selectedWarranty=${
             filterOptions.selectedWarranty
          }&productName=${filterOptions.productName.trim()}${extraQueryParameters}`,
          { method: 'GET' }
@@ -20,13 +29,15 @@ export default function useGetProducts(productType: string = 'vga', extraQueryPa
       return (await response.json()) as Promise<{ products: BaseFetchedProductType[] }>
    }
 
-   useQuery({
-      queryKey: [`get-all-${productType}`, filterOptions, productType],
+   const { data, isLoading } = useQuery({
+      queryKey: [`get-all-${productType}`, filterOptions, productFilter, productType],
       queryFn: queryFunction,
-      onSuccess: (data) => {
-         dispatch(setProducts(data.products))
-      },
+      enabled,
    })
 
-   return null
+   useEffect(() => {
+      if (data) dispatch(setProducts(data.products))
+   }, [data, dispatch])
+
+   return isLoading
 }
