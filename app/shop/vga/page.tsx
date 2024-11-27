@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { ShopContainerStyle } from './styles/style'
-import VgaShopPage from '@/components/Shop/Vga/VgaShopPage'
 import type { ProductFilterType } from '@/types/filterTypes'
 import type { VgaFilterType } from '@/components/Shop/Vga/types'
 
+import VgaShopPage from '@/components/Shop/Vga/VgaShopPage'
 import BaseSideFilter from '@ShopComponents/SideFilter/BaseSideFilter'
 import ByBandwidth from '@ShopComponents/Vga/Filters/ByBandwidth'
 import ByBaseClock from '@ShopComponents/Vga/Filters/ByBaseClock'
