@@ -33,7 +33,7 @@ export default function ProductCard({
                <Typography gutterBottom variant='subtitle1' component='div'>
                   {product.manufacturer} {product.type}
                </Typography>
-               <Typography variant='h5' sx={{ color: 'orange' }}>
+               <Typography variant='h5' sx={{ color: 'primary.main' }}>
                   {product.price.toLocaleString()} Ft
                </Typography>
             </CardContent>
