@@ -1,10 +1,13 @@
 import dynamic from 'next/dynamic'
 import { VgaType } from '@/models/types/vgaTypes'
 
-import { HeadSection, DetailsContainer, BodySection } from './styles'
+import { HeadSection, DetailsContainer } from './styles'
 
-const ImageSlider = dynamic(() => import('@/components/Details/ImageSlider/ImageSlider'))
-const RightHead = dynamic(() => import('@/components/Details/RightHead/RightHead'))
+import RightHead from '@/Details/RightHead/RightHead'
+import TopNavigation from '@/Details/TopNavigation/TopNavigation'
+import BodySection from '@/Details/Body/Body'
+import VgaDetailsTable from '@/Details/ProductsTable/Vga/VgaDetailsTable'
+const ImageSlider = dynamic(() => import('@/Details/ImageSlider/ImageSlider'))
 
 async function getVgaData(id: string) {
    const response = await fetch(`${process.env.APP_URL}/api/vga/details?vgaId=${id}`, {
@@ -17,10 +20,9 @@ export default async function page({ params }: { params: Promise<{ vgaId: string
    const vgaId = await params
    const { foundVgaDetails } = await getVgaData(vgaId.vgaId)
 
-   console.log(vgaId)
-
    return (
       <DetailsContainer>
+         <TopNavigation productType='vga' type={foundVgaDetails.type} />
          <HeadSection>
             <ImageSlider
                pictureUrls={foundVgaDetails.pictureUrls}
@@ -33,9 +35,14 @@ export default async function page({ params }: { params: Promise<{ vgaId: string
                type={foundVgaDetails.type}
                typeCode={foundVgaDetails.typeCode as string}
                price={foundVgaDetails.price}
+               warranty={foundVgaDetails.details.warranity}
+               manufacturerPageUrl={foundVgaDetails.details.manufacturerPageUrl}
             />
          </HeadSection>
-         <BodySection>BODY</BodySection>
+         <BodySection
+            description={foundVgaDetails.details.description}
+            ProductDetailsTable={<VgaDetailsTable vgaDetails={foundVgaDetails.details} />}
+         />
       </DetailsContainer>
    )
 }

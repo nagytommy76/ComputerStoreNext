@@ -18,18 +18,10 @@ export const HeadSection = styled('div')(({ theme }) => ({
    flexDirection: 'row' as const,
    alignItems: 'stretch',
    justifyContent: 'center',
+   gap: '1rem',
 
    [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
       flexDirection: 'column',
       marginBottom: '1rem',
-   },
-}))
-
-export const BodySection = styled('section')(({ theme }) => ({
-   minHeight: '55vh',
-   display: 'flex',
-   flexDirection: 'row' as const,
-   [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
-      flexDirection: 'column',
    },
 }))
