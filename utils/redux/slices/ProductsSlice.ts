@@ -3,7 +3,7 @@ import { BaseFetchedProductType } from '@Types/productType'
 
 const initialState: InitialState = {
    products: [],
-   totalProductCount: 0,
+   isLoading: false,
 }
 
 const ProductsSlice = createSlice({
@@ -13,17 +13,17 @@ const ProductsSlice = createSlice({
       setProducts: (state, action: PayloadAction<BaseFetchedProductType[]>) => {
          state.products = action.payload
       },
-      setTotalProductCount: (state, action: PayloadAction<number>) => {
-         state.totalProductCount = action.payload
+      setIsLoading: (state, action: PayloadAction<boolean>) => {
+         state.isLoading = action.payload
       },
    },
 })
 
-export const { setProducts, setTotalProductCount } = ProductsSlice.actions
+export const { setProducts, setIsLoading } = ProductsSlice.actions
 
 export default ProductsSlice.reducer
 
 type InitialState = {
    products: BaseFetchedProductType[]
-   totalProductCount: number
+   isLoading: boolean
 }

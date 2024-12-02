@@ -2,6 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { FilterTypes } from '@Types/filterTypes'
 
 const initialState: FilterTypes = {
+   page: 0,
+   perPage: 12,
+   totalProducts: 0,
    selectedManufacturer: 'all',
    selectedWarranty: 'all',
    orderBy: 'asc',
@@ -13,6 +16,15 @@ const BaseFilterData = createSlice({
    name: 'filterData',
    initialState,
    reducers: {
+      setPage: (state, action: PayloadAction<number>) => {
+         state.page = action.payload
+      },
+      setPerPage: (state, action: PayloadAction<number>) => {
+         state.perPage = action.payload
+      },
+      setTotalProductCount: (state, action: PayloadAction<number>) => {
+         state.totalProducts = action.payload
+      },
       setSelectedManufacturer: (state, action: PayloadAction<string>) => {
          state.selectedManufacturer = action.payload
       },
@@ -31,7 +43,15 @@ const BaseFilterData = createSlice({
    },
 })
 
-export const { setSelectedManufacturer, setOrderBy, setPriceRange, setSelectedWarranty, setProductName } =
-   BaseFilterData.actions
+export const {
+   setSelectedManufacturer,
+   setOrderBy,
+   setPriceRange,
+   setSelectedWarranty,
+   setProductName,
+   setPage,
+   setPerPage,
+   setTotalProductCount,
+} = BaseFilterData.actions
 
 export default BaseFilterData.reducer
