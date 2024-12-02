@@ -7,6 +7,7 @@ import RightHead from '@/Details/RightHead/RightHead'
 import TopNavigation from '@/Details/TopNavigation/TopNavigation'
 import BodySection from '@/Details/Body/Body'
 import VgaDetailsTable from '@/Details/ProductsTable/Vga/VgaDetailsTable'
+import Chart from '@/Details/Chart/Chart'
 const ImageSlider = dynamic(() => import('@/Details/ImageSlider/ImageSlider'))
 
 async function getVgaData(id: string) {
@@ -43,6 +44,7 @@ export default async function page({ params }: { params: Promise<{ vgaId: string
             description={foundVgaDetails.details.description}
             ProductDetailsTable={<VgaDetailsTable vgaDetails={foundVgaDetails.details} />}
          />
+         <Chart chartData={foundVgaDetails.details.chartData} />
       </DetailsContainer>
    )
 }
