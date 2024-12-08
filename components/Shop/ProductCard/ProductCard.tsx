@@ -21,7 +21,10 @@ export default function ProductCard({
 }) {
    return (
       <CardStyle>
-         <Link style={{ cursor: 'pointer' }} href={`/shop/${productType}/${product._id}`}>
+         <Link
+            style={{ cursor: 'pointer' }}
+            href={`/shop/${productType}/details/${product._id}?productType=${product.type}&productMan=${product.manufacturer}&typeCode=${product.typeCode}`}
+         >
             <ImageContent>
                <CardImage
                   imageSrc={product.pictureUrls[0]}
