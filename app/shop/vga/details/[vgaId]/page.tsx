@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { VgaType } from '@/models/types/vgaTypes'
 
@@ -8,7 +9,19 @@ import TopNavigation from '@/Details/TopNavigation/TopNavigation'
 import BodySection from '@/Details/Body/Body'
 import VgaDetailsTable from '@/Details/ProductsTable/Vga/VgaDetailsTable'
 import Chart from '@/Details/Chart/Chart'
+import Rating from '@/Details/Rating/Rating'
 const ImageSlider = dynamic(() => import('@/Details/ImageSlider/ImageSlider'))
+
+type Props = {
+   searchParams: Promise<{ productMan: string; productType: string; typeCode: string }>
+}
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+   const { productMan, productType, typeCode } = await searchParams
+   return {
+      title: `${productMan} ${productType} ${typeCode} | ComputerStore`,
+      description: `${productMan} ${productType} ${typeCode}`,
+   }
+}
 
 async function getVgaData(id: string) {
    const response = await fetch(`${process.env.APP_URL}/api/vga/details?vgaId=${id}`, {
@@ -45,6 +58,7 @@ export default async function page({ params }: { params: Promise<{ vgaId: string
             ProductDetailsTable={<VgaDetailsTable vgaDetails={foundVgaDetails.details} />}
          />
          <Chart chartData={foundVgaDetails.details.chartData} />
+         <Rating comments={foundVgaDetails.ratingValues} />
       </DetailsContainer>
    )
 }
