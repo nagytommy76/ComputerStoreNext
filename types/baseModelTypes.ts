@@ -29,6 +29,8 @@ export type CommentAnswerType = {
    answer: string
    answeredAt: Date
    responses: ResponsesType[]
+   commentDepth: number
+   parentCommentId: string
 }
 
 export type ResponsesType = {

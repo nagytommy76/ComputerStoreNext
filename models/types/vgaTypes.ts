@@ -3,7 +3,7 @@ import { BaseProductType, ChartDataType } from '@Types/baseModelTypes'
 export type VgaType = BaseProductType & {
    details: VgaDetailsType
 }
-type VgaDetailsType = {
+export type VgaDetailsType = {
    _id: string
    gpuManufacturer: string
    pcieType: string
