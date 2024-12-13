@@ -18,7 +18,12 @@ const NavMenu = () => {
 
    return (
       <>
-         <Button size='large' onClick={handleClick}>
+         <Link href={'/login'}>
+            <Button color='inherit' size='large'>
+               Belépés
+            </Button>
+         </Link>
+         <Button color='inherit' size='large' onClick={handleClick}>
             Shop menü
          </Button>
          <Menu

@@ -12,7 +12,7 @@ import NavMenu from './Menu/NavMenu'
 
 const Navbar = () => {
    return (
-      <AppBar component={'nav'} position='sticky'>
+      <AppBar component={'nav'} position='sticky' color='secondary' elevation={0}>
          <Container maxWidth='xl'>
             <Toolbar
                disableGutters
