@@ -1,15 +1,19 @@
 'use server'
+import { compare } from 'bcrypt'
 import dbConnect from '@DBConnect'
-import SignupFormSchema, { FormState } from '@/Validators/SignupFormSchema'
+import { UserModel } from '@Models/User/User'
+import SignupFormSchema /* { FormState } */ from '@/Validators/SignupFormSchema'
 // import { encrypt } from '@/app/utils/Session'
 
-export default async function loginAction(formData: FormData, state: FormState) {
+export default async function loginAction(state: unknown, formData: FormData) {
    await dbConnect()
-   console.log(formData)
-   console.log(state)
+
+   const email = formData.get('email')
+   const password = formData.get('password')
+
    const validatedFields = SignupFormSchema().safeParse({
-      email: formData.get('email'),
-      password: formData.get('password'),
+      email,
+      password,
    })
 
    // If any form fields are invalid, return early
@@ -20,7 +24,23 @@ export default async function loginAction(formData: FormData, state: FormState) 
       }
    }
 
+   // Search for the user in the database
+   const user = await UserModel.findOne({ email })
+
+   if (!user) {
+      return {
+         errors: {
+            email: 'Nincs ilyen felhasználó',
+            password: '',
+         },
+      }
+   }
+
+   if (await compare(password as string, user?.password as string)) {
+      console.log('Be van lépve')
+   }
    return {
-      errors: undefined,
+      email,
+      password,
    }
 }
