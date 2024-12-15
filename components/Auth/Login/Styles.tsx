@@ -1,14 +1,14 @@
 'use client'
 import { styled } from '@mui/material/styles'
-import Paper from '@mui/material/Paper'
 
-export const LoginForm = styled(Paper)({
+export const LoginForm = styled('form')(({ theme }) => ({
    width: '450px',
-   height: '350px',
+   height: '380px',
    borderRadius: '4px',
-   padding: '1.3rem',
+   padding: '1.7rem',
+   backgroundColor: theme.palette.secondary.main,
 
    display: 'flex',
    flexDirection: 'column',
    justifyContent: 'space-around',
-})
+}))
