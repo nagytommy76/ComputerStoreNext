@@ -21,6 +21,8 @@
          "@/*": ["./*"],
          "@/Theme/*": ["./utils/Theme/*"],
          "@/reduxStore/*": ["./utils/redux/*"],
+         "@/serverActions/*": ["./app/actions/*"],
+         "@/Validators/*": ["./app/utils/Validators/*"],
          "@DBConnect": ["./utils/dbConnect.ts"],
          "@Types/*": ["./types/*"],
          "@Models/*": ["./models/*"],
@@ -29,7 +31,8 @@
          "@/Services/*": ["./services/*"],
          "@/Suspense/*": ["./components/Suspense/*"],
          "@/Details/*": ["./components/Details/*"]
-      }
+      },
+      "target": "ES2017"
    },
    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
    "exclude": ["node_modules"]
