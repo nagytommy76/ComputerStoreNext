@@ -4,11 +4,11 @@ import { SignJWT, jwtVerify } from 'jose'
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
 
-export async function encrypt(payload: JWTPayload) {
+export async function encrypt(payload: JWTPayload, expirationTime: string = '7d') {
    return new SignJWT(payload)
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
-      .setExpirationTime('7d')
+      .setExpirationTime(expirationTime)
       .sign(encodedKey)
 }
 
@@ -28,6 +28,6 @@ type JWTPayload = {
    email: string
    userId: string
    useName: string
-   exp: number
-   iat: number
+   exp?: number
+   iat?: number
 }
