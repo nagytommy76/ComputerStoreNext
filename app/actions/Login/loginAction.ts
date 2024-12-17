@@ -1,13 +1,13 @@
 'use server'
 import { compare } from 'bcrypt'
+import { redirect } from 'next/navigation'
+
 import dbConnect from '@DBConnect'
-import { UserModel } from '@Models/User/User'
-import SignupFormSchema /* { FormState } */ from '@/Validators/SignupFormSchema'
-// import { encrypt } from '@/app/utils/Session'
+import UserModel from '@Models/User/User'
+import SignupFormSchema from '@/Validators/SignupFormSchema'
+import { createSession } from '@/app/utils/Session'
 
 export default async function loginAction(state: unknown, formData: FormData) {
-   await dbConnect()
-
    const email = formData.get('email')
    const password = formData.get('password')
 
@@ -15,15 +15,13 @@ export default async function loginAction(state: unknown, formData: FormData) {
       email,
       password,
    })
-
    // If any form fields are invalid, return early
    if (!validatedFields.success) {
-      console.log(validatedFields.error.flatten().fieldErrors)
       return {
          errors: validatedFields.error.flatten().fieldErrors,
       }
    }
-
+   await dbConnect()
    // Search for the user in the database
    const user = await UserModel.findOne({ email })
 
@@ -35,12 +33,16 @@ export default async function loginAction(state: unknown, formData: FormData) {
          },
       }
    }
-
+   // Check user password
    if (await compare(password as string, user?.password as string)) {
-      console.log('Be van lépve')
-   }
-   return {
-      email,
-      password,
+      await createSession({ email: user.email, userId: user._id, useName: user.userName })
+      redirect('/')
+   } else {
+      return {
+         errors: {
+            email: '',
+            password: 'Hiba! Rossz a jelszó',
+         },
+      }
    }
 }
