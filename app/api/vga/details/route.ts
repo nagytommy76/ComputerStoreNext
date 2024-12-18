@@ -9,7 +9,17 @@ export async function GET(request: NextRequest) {
    const paramsObject = convertSearchParamsToQueryObject(request.nextUrl.searchParams)
    const vgaId = paramsObject['vgaId']
    const foundVgaDetails = await VgaProduct.findOne({ _id: vgaId })
-      .select(['_id', 'type', 'typeCode', 'itemNumber', 'manufacturer', 'pictureUrls', 'price', 'details'])
+      .select([
+         '_id',
+         'type',
+         'typeCode',
+         'ratingValues',
+         'itemNumber',
+         'manufacturer',
+         'pictureUrls',
+         'price',
+         'details',
+      ])
       .sort({ 'details.chartData.timpestamp': 1 })
       .lean()
 
