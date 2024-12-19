@@ -22,7 +22,13 @@ export async function decrypt(session: string | undefined = '') {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
    } catch (error) {
       console.log('Failed to verify session')
+      return null
    }
+}
+
+export async function deleteSession() {
+   const cookieStore = await cookies()
+   cookieStore.delete('sessionToken')
 }
 
 export async function createSession(payload: JWTPayload) {
@@ -42,7 +48,8 @@ export async function createSession(payload: JWTPayload) {
 type JWTPayload = {
    email: string
    userId: string
-   useName: string
+   userName: string
+   isAdmin?: boolean
    exp?: number
    iat?: number
 }
