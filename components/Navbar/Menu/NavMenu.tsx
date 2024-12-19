@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
-const NavMenu = () => {
+const NavMenu = ({ children }: { children: React.ReactNode }) => {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
    const open = Boolean(anchorEl)
    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,11 +18,7 @@ const NavMenu = () => {
 
    return (
       <>
-         <Link href={'/login'}>
-            <Button color='inherit' size='large'>
-               Belépés
-            </Button>
-         </Link>
+         {children}
          <Button color='inherit' size='large' onClick={handleClick}>
             Shop menü
          </Button>
