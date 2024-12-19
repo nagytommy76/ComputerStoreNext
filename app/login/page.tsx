@@ -1,8 +1,15 @@
+import { redirect } from 'next/navigation'
 import Login from '@/components/Auth/Login/Login'
 import { LoginContainer, LoginPage, StyledImage } from './Styles'
 import LoginImage from '@images/login.jpg'
 
-export default function page() {
+import { verifySession } from '@/utils/DataAccessLayer/DataAccessLayer'
+
+export default async function page() {
+   const session = await verifySession()
+   const isAuth = session.isAuth
+   if (isAuth === true) return redirect('/')
+
    return (
       <LoginPage>
          <LoginContainer>
