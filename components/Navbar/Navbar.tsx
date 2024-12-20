@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography'
 import { StyledToolbar } from './Styles'
 
 import ThemeToggle from './ThemeToggler/Toggle'
+import NavMenu from './Menu/NavMenu'
 import Links from './Links/Links'
 
 const Navbar = async () => {
@@ -19,7 +20,9 @@ const Navbar = async () => {
                   <Typography variant='h4'>ComputerStore</Typography>
                </Link>
                <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
-                  <Links />
+                  <NavMenu>
+                     <Links />
+                  </NavMenu>
                   <ThemeToggle />
                </Box>
             </StyledToolbar>

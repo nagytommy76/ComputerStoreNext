@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { verifySession } from '@/utils/DataAccessLayer/DataAccessLayer'
 
-import NavMenu from '../Menu/NavMenu'
 import Button from '@mui/material/Button'
+
+import ProfileMenu from '../Menu/ProfileMenu'
 
 export default async function Links() {
    const session = await verifySession()
@@ -12,28 +13,22 @@ export default async function Links() {
 
    if (!isAuth)
       return (
-         <NavMenu>
-            <Link href={'/login'}>
-               <Button color='inherit' size='large'>
-                  Belépés
-               </Button>
-            </Link>
-         </NavMenu>
+         <Link href={'/login'}>
+            <Button color='inherit' size='large'>
+               Belépés
+            </Button>
+         </Link>
       )
 
    if (isAuth)
       return (
-         <NavMenu>
-            <>
+         <>
+            <ProfileMenu userName={userName} />
+            {isAdmin && isAdmin === true && (
                <Button color='inherit' size='large'>
-                  {userName}
+                  Admin oldal
                </Button>
-               {isAdmin && isAdmin === true && (
-                  <Button color='inherit' size='large'>
-                     Admin oldal
-                  </Button>
-               )}
-            </>
-         </NavMenu>
+            )}
+         </>
       )
 }
