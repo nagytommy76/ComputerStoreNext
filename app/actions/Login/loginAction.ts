@@ -35,7 +35,12 @@ export default async function loginAction(state: unknown, formData: FormData) {
    }
    // Check user password
    if (await compare(password as string, user?.password as string)) {
-      await createSession({ email: user.email, userId: user._id, useName: user.userName })
+      await createSession({
+         email: user.email,
+         userId: user._id,
+         userName: user.userName,
+         isAdmin: user.isAdmin,
+      })
       redirect('/')
    } else {
       return {
