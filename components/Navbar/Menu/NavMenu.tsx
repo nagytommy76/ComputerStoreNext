@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import useMenu from './Hook/useMenu'
 import Link from 'next/link'
 
 import Button from '@mui/material/Button'
@@ -7,14 +7,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
 const NavMenu = ({ children }: { children: React.ReactNode }) => {
-   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-   const open = Boolean(anchorEl)
-   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget)
-   }
-   const handleClose = () => {
-      setAnchorEl(null)
-   }
+   const { open, anchorEl, handleClick, handleClose } = useMenu()
 
    return (
       <>
