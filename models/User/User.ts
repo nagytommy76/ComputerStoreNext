@@ -1,7 +1,7 @@
 import type { UserTypes } from '@/types/userTypes'
-import { Schema, model, Model, models } from 'mongoose'
+import mongoose, { Schema, model } from 'mongoose'
 
-const UserSchema = new Schema<UserTypes, Model<UserTypes>>({
+const UserSchema = new Schema<UserTypes>({
    userName: { type: String, required: true, unique: true },
    password: {
       type: String,
@@ -63,4 +63,5 @@ const UserSchema = new Schema<UserTypes, Model<UserTypes>>({
    ],
 })
 
-export const UserModel = models.UserModel || model<UserTypes>('UserModel', UserSchema)
+const UserModel = mongoose.models.User || model<UserTypes>('User', UserSchema)
+export default UserModel
