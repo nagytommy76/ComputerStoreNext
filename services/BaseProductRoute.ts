@@ -16,6 +16,9 @@ export default async function BaseProductRoute(
 ) {
    const paramsObject = convertSearchParamsToQueryObject(searchParams)
 
+   const page = Number(paramsObject['page']) || 0
+   const perPage = Number(paramsObject['perPage']) || 12
+
    const selectedMan = paramsObject['byManufacturer'] == 'all' ? '' : paramsObject['byManufacturer']
    const orderByPrice: 'asc' | 'desc' = paramsObject['orderBy'] == 'asc' ? 'asc' : 'desc'
    const priceRange = paramsObject['priceRange'].split(',').map(Number)
@@ -38,6 +41,8 @@ export default async function BaseProductRoute(
    })
       .select('itemNumber price manufacturer type typeCode pictureUrls ratingValues._id')
       .sort({ price: orderByPrice })
+      .skip(page * perPage)
+      .limit(perPage)
       .lean()
 
    return products
