@@ -30,7 +30,9 @@
          "@ShopComponents/*": ["./components/Shop/*"],
          "@/Services/*": ["./services/*"],
          "@/Suspense/*": ["./components/Suspense/*"],
-         "@/Details/*": ["./components/Details/*"]
+         "@/Details/*": ["./components/Details/*"],
+         "@/utils/*": ["./app/utils/*"],
+         "@NextAuth": ["./utils/auth.ts"]
       },
       "target": "ES2017"
    },
