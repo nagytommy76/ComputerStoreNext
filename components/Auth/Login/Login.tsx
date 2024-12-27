@@ -4,6 +4,9 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 
+import Fade from '@mui/material/Fade'
+import Alert from '@mui/material/Alert'
+
 import loginAction from '@/serverActions/Login/loginAction'
 
 import { LoginForm } from './Styles'
@@ -15,16 +18,7 @@ export default function Login() {
          <Typography variant='h4' align='center'>
             Bejelentkezés
          </Typography>
-         <TextField
-            type='email'
-            id='email'
-            name='email'
-            label='Email cím'
-            variant='outlined'
-            fullWidth
-            error={state?.errors?.email ? true : false}
-            helperText={state?.errors?.email}
-         />
+         <TextField type='email' id='email' name='email' label='Email cím' variant='outlined' fullWidth />
          <TextField
             type='password'
             id='password'
@@ -32,12 +26,16 @@ export default function Login() {
             label='Jelszó'
             variant='outlined'
             fullWidth
-            error={state?.errors?.password ? true : false}
-            helperText={state?.errors?.password}
          />
          <Button disabled={isPending} type='submit' variant='outlined'>
             Belépés
          </Button>
+         <Fade in={state?.errors?.password ? true : false}>
+            <Alert severity='error'>
+               <p>{state?.errors?.password}</p>
+               <p>{state?.errors?.email}</p>
+            </Alert>
+         </Fade>
       </LoginForm>
    )
 }
