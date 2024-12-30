@@ -4,7 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import getQueryClient from './queryClient'
 
 // REDUX
-import StoreProvider from '@/utils/redux/StoreProvider'
+import StoreProvider from '@/reduxStore/StoreProvider'
 // THEME
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import { GlobalThemeProvider } from '@/Theme/themeProvider'
