@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography'
-import { useAppSelector } from '@/utils/redux/hooks'
+import { useAppSelector } from '@/reduxStore/hooks'
 
 import SearchField from './SearchField'
 
