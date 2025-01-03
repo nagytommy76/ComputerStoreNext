@@ -28,9 +28,5 @@ export default {
          session.user.isEmailConfirmed = token.isEmailConfirmed as boolean
          return session
       },
-      authorized: async ({ auth }) => {
-         // Logged in users are authenticated, otherwise redirect to login page
-         return !!auth
-      },
    },
 } satisfies NextAuthConfig
