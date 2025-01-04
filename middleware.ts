@@ -14,17 +14,17 @@ export default auth(async function middleware(req) {
    const isAuthRoute = authRoutes.includes(nextUrl.pathname)
    const isAdminRoute = adminRoutes.includes(nextUrl.pathname)
 
-   if (isApiAuthRoute) return null
+   if (isApiAuthRoute) return
    if (isAuthRoute) {
       if (isLoggedIn) return Response.redirect(new URL('/', nextUrl))
-      return null
+      return
    }
 
    if (!isLoggedIn && isProtectedRoute) return Response.redirect(new URL('/login', nextUrl))
 
-   if (isLoggedIn && !isAdmin && isAdminRoute) return Response.redirect(new URL('/', nextUrl))
+   if (!isAdmin && isAdminRoute) return Response.redirect(new URL('/', nextUrl))
 
-   return null
+   return
 })
 
 export const config = {
