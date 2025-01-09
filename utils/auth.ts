@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth'
 import authConfig from './auth.config'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import GoogleProvider from 'next-auth/providers/google'
 
 import { compare } from 'bcrypt'
 import dbConnect from '@DBConnect'
@@ -10,6 +11,22 @@ import SignupFormSchema from '@/Validators/SignupFormSchema'
 export const { handlers, signIn, signOut, auth } = NextAuth({
    ...authConfig,
    providers: [
+      GoogleProvider({
+         clientId: process.env.GOOGLE_CLIENT_ID as string,
+         clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+         authorization: {
+            params: {
+               prompt: 'consent',
+               access_type: 'offline',
+               response_type: 'code',
+            },
+         },
+         async profile(profile) {
+            console.log(profile)
+
+            return profile
+         },
+      }),
       CredentialsProvider({
          id: 'credentials',
          name: 'credentials',
