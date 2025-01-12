@@ -1,4 +1,5 @@
 'use client'
+import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 import GoogleIcon from '@images/google.png'
 import FacebookIcon from '@images/facebook.png'
@@ -11,18 +12,16 @@ const WIDTH_HEIGHT = 60
 
 export default function Social() {
    const logIn = (provider: 'google' | 'facebook') => {
-      console.log('FEJLESZTÉS ALATT')
+      signIn(provider, { redirectTo: '/' })
    }
 
    return (
       <SocialContainer>
+         <Button size='large' onClick={() => logIn('google')}>
+            <Image src={GoogleIcon} alt='google' width={WIDTH_HEIGHT} height={WIDTH_HEIGHT} />
+         </Button>
          <Tooltip title='A funkció fejlesztés alatt'>
-            <Button size='large' onClick={() => logIn('google')}>
-               <Image src={GoogleIcon} alt='google' width={WIDTH_HEIGHT} height={WIDTH_HEIGHT} />
-            </Button>
-         </Tooltip>
-         <Tooltip title='A funkció fejlesztés alatt'>
-            <Button size='large' onClick={() => logIn('facebook')}>
+            <Button size='large' onClick={() => console.log('Fejlesztés alatt')}>
                <Image src={FacebookIcon} alt='facebook' width={WIDTH_HEIGHT} height={WIDTH_HEIGHT} />
             </Button>
          </Tooltip>
