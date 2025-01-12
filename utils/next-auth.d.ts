@@ -11,6 +11,9 @@ declare module 'next-auth' {
       password: string
       isAdmin: boolean
       isEmailConfirmed: boolean
+      picture?: string
+      name?: string
+      userId?: string
    }
 }
 declare module 'next-auth/jwt' {
