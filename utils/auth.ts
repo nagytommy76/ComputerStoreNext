@@ -22,9 +22,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
          },
          async profile(profile) {
-            console.log(profile)
+            await dbConnect()
+            const foundUser = await UserModel.findOne({ email: profile.email }).select([
+               '_id',
+               'userName',
+               'email',
+               'password',
+               'isAdmin',
+               'isEmailConfirmed',
+            ])
 
-            return profile
+            const profileObject = { ...profile }
+
+            if (foundUser) {
+               profileObject.userId = foundUser._id
+               profileObject.userName = foundUser.userName
+               profileObject.email = foundUser.email
+               profileObject.isAdmin = foundUser.isAdmin
+               profileObject.isEmailConfirmed = foundUser.isEmailConfirmed
+            }
+            console.log('Profile object: ', profileObject)
+            return profileObject
          },
       }),
       CredentialsProvider({
