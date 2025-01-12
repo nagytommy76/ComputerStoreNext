@@ -1,7 +1,5 @@
 'use server'
 import SignupFormSchema from '@/Validators/SignupFormSchema'
-import { redirect } from 'next/navigation'
-
 import { signIn } from '@NextAuth'
 import { AuthError } from 'next-auth'
 
@@ -24,8 +22,8 @@ export default async function loginAction(state: unknown, formData: FormData) {
          email,
          password,
          redirectTo: '/',
+         redirect: true,
       })
-      redirect('/')
    } catch (error) {
       if (error instanceof AuthError) {
          switch (error.type) {
