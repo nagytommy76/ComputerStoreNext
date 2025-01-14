@@ -35,13 +35,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const profileObject = { ...profile }
 
             if (foundUser) {
-               profileObject.userId = foundUser._id
+               profileObject.userId = foundUser._id.toString()
                profileObject.userName = foundUser.userName
                profileObject.email = foundUser.email
                profileObject.isAdmin = foundUser.isAdmin
                profileObject.isEmailConfirmed = foundUser.isEmailConfirmed
             }
-            console.log('Profile object: ', profileObject)
             return profileObject
          },
       }),
