@@ -4,9 +4,9 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 
 import { compare } from 'bcrypt'
-import dbConnect from '@DBConnect'
-import UserModel from '@Models/User/User'
 import SignupFormSchema from '@/Validators/SignupFormSchema'
+
+import getUserByEmail from './auth.helper'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
    ...authConfig,
@@ -22,15 +22,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
          },
          async profile(profile) {
-            await dbConnect()
-            const foundUser = await UserModel.findOne({ email: profile.email }).select([
-               '_id',
-               'userName',
-               'email',
-               'password',
-               'isAdmin',
-               'isEmailConfirmed',
-            ])
+            const foundUser = await getUserByEmail(profile.email)
 
             const profileObject = { ...profile }
 
@@ -68,23 +60,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const password = validatedFields.data?.password
             if (!validatedFields.success) return null
 
-            await dbConnect()
-            // Search for the user in the database
-            const user = (await UserModel.findOne({ email }).select([
-               '_id',
-               'userName',
-               'email',
-               'password',
-               'isAdmin',
-               'isEmailConfirmed',
-            ])) as {
-               _id: string
-               userName: string
-               email: string
-               password: string
-               isAdmin: boolean
-               isEmailConfirmed: boolean
-            }
+            const user = await getUserByEmail(email)
 
             if (!user || !user.password) return null
 
