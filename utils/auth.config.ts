@@ -9,18 +9,13 @@ export default {
       signIn: '/login',
    },
    callbacks: {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      jwt({ token, user, account, profile }) {
-         // console.log(account)
-         // console.log(profile)
-         if (profile) {
-            token.picture = profile.picture
-            token.name = profile.name
-         }
-
+      jwt({ token, user }) {
          if (user) {
             // User is available during sign-in
             token.id = user.id
+            token.picture = user.picture as string
+            token.name = user.name as string
+            token.userId = user.userId as string
             token.userName = user.userName
             token.email = user.email as string
             token.isAdmin = user.isAdmin
@@ -29,8 +24,6 @@ export default {
          return token
       },
       async session({ session, token }) {
-         console.log('token::: ', token)
-         // console.log(user)
          session.user.userId = token.userId as string
          session.user.id = token.id as string
          session.user.userName = token.userName as string
@@ -39,7 +32,7 @@ export default {
          session.user.isEmailConfirmed = token.isEmailConfirmed as boolean
          session.user.picture = token.picture as string
          session.user.name = token.name as string
-         // console.log(session)
+
          return session
       },
    },
