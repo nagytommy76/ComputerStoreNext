@@ -41,9 +41,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
          name: 'credentials',
          credentials: {
             email: {
-               label: 'email',
+               label: 'E-mail cím',
                type: 'email',
-               placeholder: 'email',
+               placeholder: 'E-mail cím',
             },
             password: {
                label: 'Jelszó',
