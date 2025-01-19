@@ -1,14 +1,11 @@
-'use client'
-import { useSession, SessionProvider } from 'next-auth/react'
+import { auth } from '@NextAuth'
 import Link from 'next/link'
 import Button from '@mui/material/Button'
 
 import ProfileMenu from '../Menu/ProfileMenu'
 
-function Links() {
-   const { data: session } = useSession()
-
-   console.log(session)
+export default async function Links() {
+   const session = await auth()
 
    if (!session)
       return (
@@ -24,7 +21,10 @@ function Links() {
    if (session)
       return (
          <>
-            <ProfileMenu userName={userName || session.user?.name || 'Profil'} />
+            <ProfileMenu
+               userName={session.user?.name || userName || 'Profil'}
+               profilePicture={session.user?.picture}
+            />
             {isAdmin && isAdmin === true && (
                <Button color='inherit' size='large'>
                   Admin oldal
@@ -32,12 +32,4 @@ function Links() {
             )}
          </>
       )
-}
-
-export default function LinksWrapper() {
-   return (
-      <SessionProvider>
-         <Links />
-      </SessionProvider>
-   )
 }
