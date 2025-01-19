@@ -1,7 +1,9 @@
 'use server'
-import SignupFormSchema from '@/Validators/SignupFormSchema'
+import { redirect } from 'next/navigation'
 import { signIn } from '@NextAuth'
 import { AuthError } from 'next-auth'
+
+import SignupFormSchema from '@/Validators/SignupFormSchema'
 
 export default async function loginAction(state: unknown, formData: FormData) {
    const validatedFields = SignupFormSchema().safeParse({
@@ -14,7 +16,6 @@ export default async function loginAction(state: unknown, formData: FormData) {
          errors: validatedFields.error.flatten().fieldErrors,
       }
    }
-
    const { email, password } = validatedFields.data
 
    try {
@@ -44,5 +45,7 @@ export default async function loginAction(state: unknown, formData: FormData) {
             }
          }
       }
+   } finally {
+      redirect('/')
    }
 }
