@@ -7,6 +7,6 @@ export const StyledToolbar = styled(Toolbar)({
    width: '100%',
    height: '80px',
    display: 'flex',
-   justifyContent: 'space-between',
+   justifyContent: 'space-around',
    alignItems: 'center',
 })

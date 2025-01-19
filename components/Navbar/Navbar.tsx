@@ -11,6 +11,8 @@ import ThemeToggle from './ThemeToggler/Toggle'
 import NavMenu from './Menu/NavMenu'
 import Links from './Links/Links'
 
+import Cart from './Cart/Cart'
+
 const Navbar = async () => {
    return (
       <AppBar component={'nav'} position='sticky' color='secondary' elevation={0}>
@@ -27,6 +29,7 @@ const Navbar = async () => {
                </Box>
             </StyledToolbar>
          </Container>
+         <Cart />
       </AppBar>
    )
 }
