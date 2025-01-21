@@ -25,7 +25,7 @@ export default function RootLayout({
          <body>
             <Providers>
                <Navbar />
-               {children}
+               <section style={{ minHeight: '100vh' }}>{children}</section>
                <Footer />
             </Providers>
          </body>
