@@ -1,10 +1,9 @@
-import { StyledIconCartButton } from './Styles'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { StyledIconCartButton, StyledCartIcon } from './Styles'
 
 export default function CartButton({ handleOpen }: { handleOpen: () => void }) {
    return (
-      <StyledIconCartButton onClick={handleOpen} disableTouchRipple size='large'>
-         <ShoppingCartIcon fontSize='inherit' />
+      <StyledIconCartButton onClick={handleOpen} disableTouchRipple>
+         <StyledCartIcon />
       </StyledIconCartButton>
    )
 }
