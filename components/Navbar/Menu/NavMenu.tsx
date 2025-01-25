@@ -6,29 +6,40 @@ import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
-const NavMenu = ({ children }: { children: React.ReactNode }) => {
+const NavMenu = ({
+   children,
+   handleCloseNavMenu,
+}: {
+   children: React.ReactNode
+   handleCloseNavMenu: () => void
+}) => {
    const { open, anchorEl, handleClick, handleClose } = useMenu()
+
+   function closeBothMenuAndNavMenu() {
+      handleCloseNavMenu()
+      handleClose()
+   }
 
    return (
       <>
          {children}
-         <Button color='inherit' size='large' onClick={handleClick}>
+         <Button sx={{ color: '#FFF' }} size='large' onClick={handleClick}>
             Shop menü
          </Button>
          <Menu
-            id='basic-menu'
+            id='shop-dropdown-menu'
             anchorEl={anchorEl}
             open={open}
-            onClose={handleClose}
+            onClose={closeBothMenuAndNavMenu}
             MenuListProps={{
                'aria-labelledby': 'basic-button',
             }}
          >
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={closeBothMenuAndNavMenu}>
                <Link href={'/shop/vga'}>Videókártya</Link>
             </MenuItem>
-            <MenuItem onClick={handleClose}>Alaplap</MenuItem>
-            <MenuItem onClick={handleClose}>Processzor</MenuItem>
+            <MenuItem onClick={closeBothMenuAndNavMenu}>Alaplap</MenuItem>
+            <MenuItem onClick={closeBothMenuAndNavMenu}>Processzor</MenuItem>
          </Menu>
       </>
    )
