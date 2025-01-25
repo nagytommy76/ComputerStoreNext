@@ -10,7 +10,7 @@ export default async function Links() {
    if (!session)
       return (
          <Link href={'/login'}>
-            <Button color='inherit' size='large'>
+            <Button sx={{ color: '#FFF' }} size='large'>
                Belépés
             </Button>
          </Link>
@@ -26,7 +26,7 @@ export default async function Links() {
                profilePicture={session.user?.picture}
             />
             {isAdmin && isAdmin === true && (
-               <Button color='inherit' size='large'>
+               <Button sx={{ color: '#FFF' }} size='large'>
                   Admin oldal
                </Button>
             )}
