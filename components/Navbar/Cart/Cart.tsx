@@ -1,21 +1,29 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 
 import CartButton from './CartButton/CartButton'
 import CartSlide from './CartSlide/CartSlide'
 
+import Drawer from '@mui/material/Drawer'
+
 export default function Cart() {
    const [isOpen, setIsOpen] = useState(false)
-   const containerRef = useRef<HTMLDivElement>(null)
 
-   const handleOpen = () => {
-      setIsOpen((prev) => !prev)
+   const toggleDrawer = (newOpen: boolean) => () => {
+      setIsOpen(newOpen)
    }
 
    return (
-      <div ref={containerRef}>
-         <CartButton handleOpen={handleOpen} />
-         <CartSlide containerRef={containerRef} isOpen={isOpen} />
-      </div>
+      <>
+         <CartButton handleOpen={toggleDrawer} />
+         <Drawer
+            SlideProps={{ mountOnEnter: true, unmountOnExit: true }}
+            anchor='right'
+            open={isOpen}
+            onClose={toggleDrawer(false)}
+         >
+            <CartSlide toggleDrawer={toggleDrawer} />
+         </Drawer>
+      </>
    )
 }
