@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 import Image from 'next/image'
 
 export const LoginPage = styled('section')(({ theme }) => ({
-   minHeight: '80vh',
+   height: '100vh',
    display: 'grid',
    gridTemplateColumns: 'repeat(2, 50%)',
    alignItems: 'center',
@@ -23,6 +23,7 @@ export const LoginContainer = styled('div')({
 
 export const StyledImage = styled(Image)(({ theme }) => ({
    width: '100%',
+   height: '100%',
    objectFit: 'cover',
    [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
       display: 'none',
