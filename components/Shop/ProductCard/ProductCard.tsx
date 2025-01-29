@@ -41,7 +41,7 @@ export default function ProductCard({
                </Typography>
             </CardContent>
          </Link>
-         <CardFooter />
+         <CardFooter product={product} productType={productType} />
       </CardStyle>
    )
 }
