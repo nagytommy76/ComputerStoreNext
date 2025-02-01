@@ -1,30 +1,30 @@
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
+import Image from 'next/image'
+
 import CardContent from '@mui/material/CardContent'
-// import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 
-export default function CartCard() {
+import { CartCardStyle, CardActionsStyle } from './Styles'
+import type { CartItemsType } from '@/types/userTypes'
+
+import QuantitySelector from './QuantitySelector/QuantitySelector'
+import DeleteButton from './DeleteBtn/DeleteButton'
+
+export default function CartCard({ singleCartItem }: { singleCartItem: CartItemsType }) {
    return (
-      <Card sx={{ maxWidth: 345 }}>
-         {/* <CardMedia
-                  sx={{ height: 140 }}
-                  image='/static/images/cards/contemplative-reptile.jpg'
-                  title='green iguana'
-               /> */}
-         <CardContent>
-            <Typography gutterBottom variant='h5' component='div'>
-               Lizard
+      <CartCardStyle>
+         <DeleteButton itemId={singleCartItem.itemId} />
+         <Image src={singleCartItem.displayImage} alt={singleCartItem.displayName} width={150} height={150} />
+         <CardContent sx={{}}>
+            <Typography gutterBottom variant='body2'>
+               {singleCartItem.displayName}
             </Typography>
-            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-               Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across
-               all continents except Antarctica
-            </Typography>
+            <CardActionsStyle>
+               <QuantitySelector id={singleCartItem.itemId} quaintity={singleCartItem.quantity} />
+               <Typography gutterBottom variant='caption'>
+                  {(singleCartItem.price * singleCartItem.quantity).toLocaleString()} Ft
+               </Typography>
+            </CardActionsStyle>
          </CardContent>
-         <CardActions>
-            {/* <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button> */}
-         </CardActions>
-      </Card>
+      </CartCardStyle>
    )
 }
