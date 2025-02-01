@@ -1,19 +1,49 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import {
+   persistReducer,
+   persistStore,
+   FLUSH,
+   REHYDRATE,
+   PAUSE,
+   PERSIST,
+   PURGE,
+   REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 import ThemeSlice from './slices/ThemeSlice'
 import ProductsSlice from './slices/ProductsSlice'
 import BaseFilterDataSlice from './slices/Filter/BaseFilterDataSlice'
 import VgaFilterSlice from './slices/Filter/VgaFilterSlice'
+import CartSlice from './slices/Cart/CartSlice'
+
+const rootReducer = combineReducers({
+   theme: ThemeSlice,
+   products: ProductsSlice,
+   filter: BaseFilterDataSlice,
+   vgaFilter: VgaFilterSlice,
+   cartSlice: persistReducer({ key: 'Cart', storage }, CartSlice),
+})
 
 export const makeStore = () => {
-   return configureStore({
-      reducer: {
-         theme: ThemeSlice,
-         products: ProductsSlice,
-         filter: BaseFilterDataSlice,
-         vgaFilter: VgaFilterSlice,
-      },
-   })
+   const isServer = typeof window === 'undefined'
+   if (isServer) {
+      return configureStore({
+         reducer: rootReducer,
+      })
+   } else {
+      const store: any = configureStore({
+         reducer: rootReducer,
+         middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({
+               serializableCheck: {
+                  ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+               },
+            }),
+      })
+      store.__persistor = persistStore(store)
+      return store
+   }
 }
 
 // Infer the type of makeStore
