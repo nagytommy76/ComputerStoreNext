@@ -11,7 +11,7 @@ import DeleteButton from './DeleteBtn/DeleteButton'
 
 export default function CartCard({ singleCartItem }: { singleCartItem: CartItemsType }) {
    return (
-      <CartCardStyle>
+      <CartCardStyle elevation={0}>
          <DeleteButton itemId={singleCartItem.itemId} />
          <Image src={singleCartItem.displayImage} alt={singleCartItem.displayName} width={150} height={150} />
          <CardContent sx={{}}>
