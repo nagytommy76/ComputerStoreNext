@@ -12,6 +12,15 @@ export const work_sans = Work_Sans({
 const transitions = { create: () => 'all .1s linear' }
 // Create a theme instance.
 export const lightTheme = createTheme({
+   components: {
+      MuiCard: {
+         styleOverrides: {
+            root: {
+               background: '#f5f5f5',
+            },
+         },
+      },
+   },
    transitions,
    palette: {
       mode: 'light',
@@ -44,6 +53,13 @@ export const lightTheme = createTheme({
 
 export const darkTheme = createTheme({
    components: {
+      MuiCard: {
+         styleOverrides: {
+            root: {
+               background: '#202020',
+            },
+         },
+      },
       MuiPaper: {
          styleOverrides: {
             root: {
