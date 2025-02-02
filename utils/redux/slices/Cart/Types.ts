@@ -1,3 +1,5 @@
+import type { CartItemsType } from '@/types/userTypes'
+
 export type IncomingTypes = {
    _id: string
    productType: string
@@ -5,15 +7,6 @@ export type IncomingTypes = {
    displayImage: string
    price: number
    itemQuantity: number
-}
-
-export type CartItemsType = {
-   itemId: string
-   productType: string
-   displayName: string
-   displayImage: string
-   quantity: number
-   price: number
 }
 
 export type StateType = {
