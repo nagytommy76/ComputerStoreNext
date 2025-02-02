@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { CartItemsType, IncomingTypes, initialState } from './Types'
+import { IncomingTypes, initialState } from './Types'
+import type { CartItemsType } from '@/types/userTypes'
 import {
    checkProductExistsInTheCart,
    searchForStartingIndexInStateCartItems,
    calculateTotalPriceAndQuantity,
+   increaseItemQtyByOne,
 } from './Helpers'
 
 const CartSlice = createSlice({
@@ -33,9 +35,22 @@ const CartSlice = createSlice({
             calculateTotalPriceAndQuantity(state)
          }
       },
+      increaseItemQty: (state, action: PayloadAction<string>) => {
+         increaseItemQtyByOne(state, action.payload)
+      },
+      decreaseItemQty: (state, action: PayloadAction<string>) => {
+         increaseItemQtyByOne(state, action.payload, false)
+      },
+      removeAllEntitesFromCart: (state, action: PayloadAction<string>) => {
+         const cartItemToDeleteIndex = searchForStartingIndexInStateCartItems(action.payload, state.cartItems)
+         if (cartItemToDeleteIndex >= 0) {
+            state.cartItems.splice(cartItemToDeleteIndex, 1)
+            calculateTotalPriceAndQuantity(state)
+         }
+      },
    },
 })
 
-export const { addToCart } = CartSlice.actions
+export const { addToCart, decreaseItemQty, increaseItemQty, removeAllEntitesFromCart } = CartSlice.actions
 
 export default CartSlice.reducer
