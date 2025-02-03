@@ -2,9 +2,7 @@ import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 
 export const CartSlideContainer = styled(Box)(({ theme }) => ({
-   overflow: 'hidden',
    width: '400px',
-   height: '100%',
    padding: '1rem',
 
    [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
@@ -12,8 +10,14 @@ export const CartSlideContainer = styled(Box)(({ theme }) => ({
    },
 }))
 
-export const CartBodySection = styled('section')(({ theme }) => ({
-   height: '100%',
+export const CartBodySection = styled('section')(({}) => ({
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '1.5rem',
+   marginBottom: '2rem',
+}))
+
+export const CartFooterSection = styled('footer')(({}) => ({
    display: 'flex',
    flexDirection: 'column',
 }))
