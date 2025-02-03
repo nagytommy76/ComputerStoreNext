@@ -9,6 +9,7 @@ import { StyledToolbar } from './Styles'
 import ResponsiveMenu from './Menu/ResponsiveMenu'
 import Links from './Links/Links'
 import Cart from './Cart/Cart'
+import CheckoutBtn from './Cart/CartSlide/CheckoutBtn/CheckoutBtn'
 
 const Navbar = () => {
    return (
@@ -31,7 +32,9 @@ const Navbar = () => {
                </ResponsiveMenu>
             </StyledToolbar>
          </Container>
-         <Cart />
+         <Cart>
+            <CheckoutBtn />
+         </Cart>
       </AppBar>
    )
 }

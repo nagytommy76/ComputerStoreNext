@@ -6,7 +6,7 @@ import CartSlide from './CartSlide/CartSlide'
 
 import Drawer from '@mui/material/Drawer'
 
-export default function Cart() {
+export default function Cart({ children }: { children: React.ReactNode }) {
    const [isOpen, setIsOpen] = useState(false)
 
    const toggleDrawer = (newOpen: boolean) => () => {
@@ -22,7 +22,7 @@ export default function Cart() {
             open={isOpen}
             onClose={toggleDrawer(false)}
          >
-            <CartSlide toggleDrawer={toggleDrawer} />
+            <CartSlide toggleDrawer={toggleDrawer}>{children}</CartSlide>
          </Drawer>
       </>
    )
