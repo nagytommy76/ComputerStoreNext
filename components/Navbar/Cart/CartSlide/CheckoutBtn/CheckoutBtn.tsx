@@ -1,35 +1,44 @@
-'use client'
-import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
-
+import { auth } from '@NextAuth'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
-
+import Typography from '@mui/material/Typography'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 
-export default function CheckoutBtn() {
-   const { data } = useSession()
-   const [isLoggedIn, setIsLoggedIn] = useState(false)
+const TooltipContent = () => {
+   return (
+      <>
+         <Typography gutterBottom variant='caption' textAlign='center'>
+            Kérlek jelentkezz be a tovább lépéshez!
+         </Typography>
+         <Button fullWidth variant='text' color='primary'>
+            Vagy regisztrálj!
+         </Button>
+      </>
+   )
+}
 
-   useEffect(() => {
-      setIsLoggedIn(data !== null)
-      console.log(data !== null)
-      console.log(data)
-   }, [data])
+export default async function CheckoutBtn() {
+   const session = await auth()
+   if (!session)
+      return (
+         <Tooltip title={<TooltipContent />} placement='top' arrow>
+            <span>
+               <Button
+                  fullWidth
+                  disabled={true}
+                  variant='contained'
+                  color='info'
+                  endIcon={<KeyboardDoubleArrowRightIcon />}
+               >
+                  Tovább a megrendeléshez
+               </Button>
+            </span>
+         </Tooltip>
+      )
 
    return (
-      <Tooltip title={!isLoggedIn ? 'Kérlek jelentkezz be a tovább lépéshez!' : ''} placement='top' arrow>
-         <span>
-            <Button
-               fullWidth
-               disabled={!isLoggedIn}
-               variant='contained'
-               color='info'
-               endIcon={<KeyboardDoubleArrowRightIcon />}
-            >
-               Tovább a megrendeléshez
-            </Button>
-         </span>
-      </Tooltip>
+      <Button fullWidth variant='contained' color='info' endIcon={<KeyboardDoubleArrowRightIcon />}>
+         Tovább a megrendeléshez
+      </Button>
    )
 }
