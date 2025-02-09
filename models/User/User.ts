@@ -1,5 +1,6 @@
 import type { UserTypes } from '@/types/userTypes'
-import mongoose, { Schema, model } from 'mongoose'
+import { Schema, model, models } from 'mongoose'
+import UserDBDefinitions from './userHelper'
 
 const UserSchema = new Schema<UserTypes>({
    userName: { type: String, required: true, unique: true },
@@ -16,52 +17,8 @@ const UserSchema = new Schema<UserTypes>({
    },
    isAdmin: { type: Boolean, default: false },
    isEmailConfirmed: { type: Boolean, default: false },
-   orders: [
-      {
-         orderedAt: { type: Date, default: new Date() },
-         totalPrice: { type: Number, default: 0 },
-         deliveryType: { type: String, default: '' },
-         deliveryPrice: { type: Number, default: 0 },
-         paymentMethod: { type: String, default: '' },
-         payedAt: { type: Number, default: 0 },
-         products: {
-            type: [
-               {
-                  productID: Schema.Types.ObjectId,
-                  productName: String,
-                  productImage: String,
-                  productQty: Number,
-                  productPrice: Number,
-                  productType: String,
-               },
-            ],
-         },
-      },
-   ],
-   userDetails: {
-      firstName: String,
-      lastName: String,
-      phone: String,
-      address: {
-         zipCode: Number,
-         city: String,
-         street: String,
-         houseNumber: String,
-         floor: String,
-         door: String,
-      },
-   },
-   cartItems: [
-      {
-         itemId: String,
-         displayImage: String,
-         displayName: String,
-         price: Number,
-         quantity: Number,
-         productType: String,
-      },
-   ],
+   ...UserDBDefinitions,
 })
 
-const UserModel = mongoose.models.User || model<UserTypes>('User', UserSchema)
+const UserModel = models?.User || model<UserTypes>('User', UserSchema)
 export default UserModel
