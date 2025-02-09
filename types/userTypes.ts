@@ -1,5 +1,18 @@
 import { ObjectId } from 'mongoose'
 
+export type GoogleUserTypes = {
+   name: string
+   family_name: string
+   given_name: string
+   email: string
+   picture: string
+   isEmailConfirmed: boolean
+   providerAccountId: string
+   provider: string
+   cartItems: CartItemsType[]
+   userDetails: UserDetailsTypes
+   orders: UserOrders
+}
 export type UserTypes = {
    userName: string
    email: string
