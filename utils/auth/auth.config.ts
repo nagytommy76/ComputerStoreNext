@@ -1,4 +1,7 @@
 import { NextAuthConfig } from 'next-auth'
+import dbConnect from '@DBConnect'
+import GoogleUserModel from '@/models/User/GoogleUser'
+import UserModel from '@/models/User/User'
 
 export default {
    providers: [],
@@ -34,6 +37,33 @@ export default {
          session.user.name = token.name as string
 
          return session
+      },
+      async signIn({ account, profile }) {
+         // Both register and signin users
+         if (account?.provider === 'google') {
+            await dbConnect()
+            // 1. Check if th user (email) exists in your database
+            const foundUser = await UserModel.findOne({ email: profile?.email })
+
+            if (foundUser) return true
+            const foundGoogleUser = await GoogleUserModel.findOne({ email: profile?.email })
+            // 2. If it doesn't exist, create it -> google_user mongoDB
+
+            if (!foundGoogleUser) {
+               const googleUser = new GoogleUserModel({
+                  name: profile?.name,
+                  family_name: profile?.family_name,
+                  given_name: profile?.given_name,
+                  email: profile?.email,
+                  picture: profile?.picture,
+                  isEmailConfirmed: profile?.email_verified,
+                  providerAccountId: account?.providerAccountId,
+                  provider: account?.provider,
+               })
+               await googleUser.save()
+            }
+         }
+         return true
       },
    },
 } satisfies NextAuthConfig
