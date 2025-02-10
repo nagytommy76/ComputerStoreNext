@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { ShopContainerStyle } from './styles/style'
+import { ShopContainerStyle } from '../styles/style'
 import type { ProductFilterType } from '@/types/filterTypes'
 import type { VgaFilterType } from '@/components/Shop/Vga/types'
 
