@@ -1,5 +1,5 @@
 import dbConnect from '@DBConnect'
-import { VgaProduct } from '@Models/vga'
+import { VgaProduct } from '@Models/Vga/vga'
 import { type NextRequest } from 'next/server'
 
 import BaseProductRoute, { convertSearchParamsToQueryObject } from '@/Services/BaseProductRoute'

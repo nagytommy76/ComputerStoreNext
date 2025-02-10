@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { Schema, model } from 'mongoose'
-import { VgaType } from './types/vgaTypes'
-import { ChartData, ProductRatingValuesSchema } from './helper'
+import { VgaType } from './vgaTypes'
+import { ChartData, ProductRatingValuesSchema } from '../helper'
 
 const VgaSchema = new Schema<VgaType>({
    itemNumber: { type: String, required: true },

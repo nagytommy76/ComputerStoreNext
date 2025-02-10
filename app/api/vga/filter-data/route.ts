@@ -1,5 +1,5 @@
 import dbConnect from '@DBConnect'
-import { VgaProduct } from '@Models/vga'
+import { VgaProduct } from '@Models/Vga/vga'
 
 export async function GET() {
    await dbConnect()

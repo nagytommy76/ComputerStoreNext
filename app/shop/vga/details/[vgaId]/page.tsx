@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
-import { VgaType } from '@/models/types/vgaTypes'
+import { VgaType } from '@/models/Vga/vgaTypes'
 
 import { HeadSection, DetailsContainer } from './styles'
 
