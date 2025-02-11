@@ -12,9 +12,9 @@ export async function GET(request: NextRequest) {
    const socket = paramsObject['socket'] == 'all' ? '' : paramsObject['socket']
    const coreRange = paramsObject['coreCount'].split(',')
    const threadRange = paramsObject['threadCount'].split(',')
-   const frequencyRange = paramsObject['frequency'].split(',')
+   const frequencyRange = paramsObject['baseFrequency'].split(',')
    const turboRange = paramsObject['turboFrequency'].split(',')
-   const tdp = paramsObject['tdp'] == 'all' ? '' : paramsObject['tdp']
+   const tdp = paramsObject['tdp'].split(',')
    const l3Range = paramsObject['l3Cache'].split(',')
 
    const extraQueryParams = {
