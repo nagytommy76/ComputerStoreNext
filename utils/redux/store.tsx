@@ -15,6 +15,7 @@ import ThemeSlice from './slices/ThemeSlice'
 import ProductsSlice from './slices/ProductsSlice'
 import BaseFilterDataSlice from './slices/Filter/BaseFilterDataSlice'
 import VgaFilterSlice from './slices/Filter/VgaFilterSlice'
+import CpuFilterSlice from './slices/Filter/CpuFilter'
 import CartSlice from './slices/Cart/CartSlice'
 
 const rootReducer = combineReducers({
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
    products: ProductsSlice,
    filter: BaseFilterDataSlice,
    vgaFilter: VgaFilterSlice,
-   cartSlice: persistReducer({ key: 'Cart', storage }, CartSlice),
+   cpuFilter: CpuFilterSlice,
+   cart: persistReducer({ key: 'Cart', storage }, CartSlice),
 })
 
 export const makeStore = () => {
@@ -32,7 +34,7 @@ export const makeStore = () => {
          reducer: rootReducer,
       })
    } else {
-      const store: any = configureStore({
+      const store = configureStore({
          reducer: rootReducer,
          middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
