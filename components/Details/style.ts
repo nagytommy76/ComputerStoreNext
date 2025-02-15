@@ -4,7 +4,7 @@ import { styled } from '@mui/material'
 export const DetailsContainer = styled('section')(({ theme }) => ({
    minHeight: '100vh',
    width: '50%',
-   margin: '1.5rem auto 0 auto',
+   margin: '110px auto 0 auto',
 
    [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
       width: '95%',
