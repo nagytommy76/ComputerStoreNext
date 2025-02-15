@@ -29,13 +29,17 @@ export default async function page() {
    return (
       <section style={ShopContainerStyle}>
          <BaseSideFilter filters={cpuFilterData}>
-            <BySocket />
-            <ByCoreCount />
-            <ByThreadCount />
-            <ByBaseFrequency />
-            <ByTurboFrequency />
-            <ByTDPRange />
-            <ByL3Cache />
+            <BySocket allSocket={cpuFilterData.allSockets} />
+            <ByCoreCount coreCounts={[cpuFilterData.minCoreCount, cpuFilterData.maxCoreCount]} />
+            <ByThreadCount threadCounts={[cpuFilterData.minThreadCount, cpuFilterData.maxThreadCount]} />
+            <ByBaseFrequency
+               baseFrequency={[cpuFilterData.minBaseFrequency, cpuFilterData.maxBaseFrequency]}
+            />
+            <ByTurboFrequency
+               turboFrequency={[cpuFilterData.minTurboFrequency, cpuFilterData.maxTurboFrequency]}
+            />
+            <ByTDPRange tdp={[cpuFilterData.minTDP, cpuFilterData.maxTDP]} />
+            <ByL3Cache l3Cache={[cpuFilterData.minL3Cache, cpuFilterData.maxL3Cache]} />
          </BaseSideFilter>
          <CpuShopPage cpuFilterData={cpuFilterData} />
       </section>
