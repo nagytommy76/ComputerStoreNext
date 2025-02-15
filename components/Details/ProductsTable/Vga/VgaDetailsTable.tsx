@@ -3,9 +3,9 @@ import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
 
-import TableRowComponent from './TableRow'
+import TableRowComponent from '../TableRow'
 
-import type { VgaDetailsType } from '@/models/types/vgaTypes'
+import type { VgaDetailsType } from '@/models/Vga/vgaTypes'
 
 export default function VgaDetailsTable({ vgaDetails }: { vgaDetails: VgaDetailsType }) {
    return (
