@@ -1,4 +1,5 @@
 import Skeleton from '@mui/material/Skeleton'
+import { ShopContainerStyle } from '../../../app/shop/styles/style'
 import { ProductContainerStyle, CardGridContainerStyle } from '../../Shop/Products/Styles'
 
 import Container from '../ProductCard/Container'
@@ -6,16 +7,7 @@ import Filter from './Filter'
 
 export default function ShopPage() {
    return (
-      <section
-         style={{
-            width: '100%',
-            minHeight: '100vh',
-            marginTop: '100px',
-            display: 'flex',
-            flexDirection: 'row' as const,
-            justifyContent: 'space-between',
-         }}
-      >
+      <ShopContainerStyle>
          <Filter />
          <ProductContainerStyle>
             <div
@@ -35,6 +27,6 @@ export default function ShopPage() {
                <Container />
             </CardGridContainerStyle>
          </ProductContainerStyle>
-      </section>
+      </ShopContainerStyle>
    )
 }

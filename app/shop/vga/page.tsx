@@ -30,7 +30,7 @@ export default async function page() {
    const vgaFilterData = await getAllVgaFilter()
 
    return (
-      <section style={ShopContainerStyle}>
+      <ShopContainerStyle>
          <BaseSideFilter filters={vgaFilterData}>
             <ByGpuManufacturer gpuManufacturers={vgaFilterData.gpuManufacturer} />
             <ByPciType pcieTypes={vgaFilterData.pciType} />
@@ -43,7 +43,7 @@ export default async function page() {
             <ByPowerConsumption powerConsuptions={[vgaFilterData.minTdp, vgaFilterData.maxTdp]} />
          </BaseSideFilter>
          <VgaShopPage vgaFilterData={vgaFilterData} />
-      </section>
+      </ShopContainerStyle>
    )
 }
 // https://stackoverflow.com/questions/77971327/server-side-component-list-filtering-in-next-js

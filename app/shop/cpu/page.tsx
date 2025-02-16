@@ -27,7 +27,7 @@ async function getAllCpuFilter() {
 export default async function page() {
    const cpuFilterData = await getAllCpuFilter()
    return (
-      <section style={ShopContainerStyle}>
+      <ShopContainerStyle>
          <BaseSideFilter filters={cpuFilterData}>
             <BySocket allSocket={cpuFilterData.allSockets} />
             <ByCoreCount coreCounts={[cpuFilterData.minCoreCount, cpuFilterData.maxCoreCount]} />
@@ -42,6 +42,6 @@ export default async function page() {
             <ByL3Cache l3Cache={[cpuFilterData.minL3Cache, cpuFilterData.maxL3Cache]} />
          </BaseSideFilter>
          <CpuShopPage cpuFilterData={cpuFilterData} />
-      </section>
+      </ShopContainerStyle>
    )
 }
