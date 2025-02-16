@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { CardStyle, ImageContent } from './Styles'
 
+import RatingCount from './Includes/RatingCount'
 import CardFooter from './Footer/CardFooter'
 const CardImage = dynamic(() => import('./Includes/CardImage'), { ssr: false })
 
@@ -14,10 +15,12 @@ export default function ProductCard({
    product,
    productType,
    fallbackImage,
+   ratingCount = 0,
 }: {
    product: BaseFetchedProductType
    productType: string
    fallbackImage: string
+   ratingCount?: number
 }) {
    return (
       <CardStyle>
@@ -25,6 +28,7 @@ export default function ProductCard({
             style={{ cursor: 'pointer' }}
             href={`/shop/${productType}/details/${product._id}?productType=${product.type}&productMan=${product.manufacturer}&typeCode=${product.typeCode}`}
          >
+            {ratingCount > 0 && <RatingCount ratingCount={ratingCount} />}
             <ImageContent>
                <CardImage
                   imageSrc={product.pictureUrls[0]}

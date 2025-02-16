@@ -2,8 +2,6 @@
 import React from 'react'
 import { useAppSelector } from '@/reduxStore/hooks'
 
-import Vga_icon from '@images/vga_icon.jpg'
-
 import ProductCard from '../ProductCard/ProductCard'
 import { ProductContainerStyle, CardGridContainerStyle } from './Styles'
 
@@ -12,7 +10,15 @@ import Pagination from './Pagination/Pagination'
 import Container from '@/Suspense/ProductCard/Container'
 import NotFound from './NotFound/NotFound'
 
-export default function Products({ productName }: { productName: string }) {
+export default function Products({
+   productName,
+   productType,
+   fallbackIconSrc,
+}: {
+   productName: string
+   productType: string
+   fallbackIconSrc: string
+}) {
    const { products, isLoading } = useAppSelector((state) => state.products)
 
    return (
@@ -26,9 +32,10 @@ export default function Products({ productName }: { productName: string }) {
                products.map((product) => (
                   <ProductCard
                      key={product._id as string}
-                     productType='vga'
-                     fallbackImage={Vga_icon.src}
+                     productType={productType}
+                     fallbackImage={fallbackIconSrc}
                      product={product}
+                     ratingCount={product.ratingValues.length}
                   />
                ))
             )}
