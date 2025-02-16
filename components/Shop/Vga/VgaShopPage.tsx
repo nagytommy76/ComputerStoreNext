@@ -8,6 +8,7 @@ import type { ProductFilterType } from '@/types/filterTypes'
 import useExtraDispatch from './Hooks/useExtraDispatch'
 import useExtraQuery from './Hooks/useExtraQuery'
 
+import Vga_icon from '@images/vga_icon.jpg'
 const Products = dynamic(() => import('../Products/Products'), {})
 
 export default function VgaShopPage({ vgaFilterData }: { vgaFilterData: ProductFilterType }) {
@@ -17,5 +18,5 @@ export default function VgaShopPage({ vgaFilterData }: { vgaFilterData: ProductF
    const isFetched = useFilter(vgaFilterData, extraDispatches)
    useGetProducts('vga', vgaFilter, extraQuery, isFetched)
 
-   return <Products productName='Videókártya' />
+   return <Products productName='Videókártya' productType='vga' fallbackIconSrc={Vga_icon.src} />
 }

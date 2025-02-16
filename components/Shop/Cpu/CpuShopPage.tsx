@@ -8,6 +8,8 @@ import type { ProductFilterType } from '@/types/filterTypes'
 import useExtraDispatch from './Hooks/useExtraDispatch'
 import useExtraQuery from './Hooks/useExtraQuery'
 
+import CpuIcon from '@images/cpu.png'
+
 const Products = dynamic(() => import('../Products/Products'), {})
 
 export default function CpuShopPage({ cpuFilterData }: { cpuFilterData: ProductFilterType }) {
@@ -17,5 +19,5 @@ export default function CpuShopPage({ cpuFilterData }: { cpuFilterData: ProductF
    const isFetched = useFilter(cpuFilterData, extraDispatches)
    useGetProducts('cpu', cpuFilter, extraQuery, isFetched)
 
-   return <Products productName='Processzor' />
+   return <Products productName='Processzor' productType='cpu' fallbackIconSrc={CpuIcon.src} />
 }
