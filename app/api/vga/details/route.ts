@@ -1,27 +1,16 @@
-import dbConnect from '@DBConnect'
 import { VgaProduct } from '@Models/Vga/vga'
 import { type NextRequest } from 'next/server'
-import { convertSearchParamsToQueryObject } from '@/Services/BaseProductRoute'
+
+import DetailsClass from '@/services/DetailsClass'
 
 export async function GET(request: NextRequest) {
-   await dbConnect()
+   const Details = new DetailsClass()
 
-   const paramsObject = convertSearchParamsToQueryObject(request.nextUrl.searchParams)
-   const vgaId = paramsObject['vgaId']
-   const foundVgaDetails = await VgaProduct.findOne({ _id: vgaId })
-      .select([
-         '_id',
-         'type',
-         'typeCode',
-         'ratingValues',
-         'itemNumber',
-         'manufacturer',
-         'pictureUrls',
-         'price',
-         'details',
-      ])
-      .sort({ 'details.chartData.timpestamp': 1 })
-      .lean()
+   const foundVgaDetails = await Details.returnProductDetails(
+      request.nextUrl.searchParams,
+      'vgaId',
+      VgaProduct
+   )
 
    return new Response(JSON.stringify({ foundVgaDetails }), { status: 200 })
 }
