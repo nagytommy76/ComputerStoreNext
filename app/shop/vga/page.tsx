@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { ShopContainerStyle } from '../styles/style'
 import type { ProductFilterType } from '@/types/filterTypes'
-import type { VgaFilterType } from '@/components/Shop/Vga/types'
+import type { VgaFilterType } from '@/types/ProductFilter/VgaFilter'
 
 import VgaShopPage from '@/components/Shop/Vga/VgaShopPage'
 import BaseSideFilter from '@ShopComponents/SideFilter/BaseSideFilter'

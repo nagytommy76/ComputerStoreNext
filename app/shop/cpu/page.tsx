@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { ShopContainerStyle } from '../styles/style'
 import type { ProductFilterType } from '@/types/filterTypes'
-import type { CpuFilterType } from '@/app/api/cpu/types'
+import type { CpuFilterType } from '@/types/ProductFilter/CpuFilter'
 
 import BaseSideFilter from '@ShopComponents/SideFilter/BaseSideFilter'
 import CpuShopPage from '@ShopComponents/Cpu/CpuShopPage'
