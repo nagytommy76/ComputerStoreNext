@@ -29,6 +29,7 @@ export default async function page({ params }: { params: Promise<{ vgaId: string
 
    return (
       <DetailsPage
+         productType='vga'
          details={foundVgaDetails}
          DetailsTableComponent={<VgaDetailsTable vgaDetails={foundVgaDetails.details} />}
       />

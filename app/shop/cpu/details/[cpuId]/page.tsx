@@ -31,6 +31,7 @@ export default async function page({ params }: { params: Promise<{ cpuId: string
       <DetailsPage
          details={foundCpuDetails}
          DetailsTableComponent={<CpuDetailTable details={foundCpuDetails.details} />}
+         productType='cpu'
       />
    )
 }
