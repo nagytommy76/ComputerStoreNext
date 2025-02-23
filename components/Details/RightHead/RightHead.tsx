@@ -4,8 +4,6 @@ import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
 import { RightHeadStyle, PriceAndCartStyle, WarrantyStyle } from './Styles'
 
-import AddToCart from '../AddToCart/AddToCart'
-
 export default function RightHead({
    manufacturer,
    type,
@@ -13,6 +11,7 @@ export default function RightHead({
    price,
    warranty,
    manufacturerPageUrl,
+   children,
 }: {
    manufacturer: string
    type: string
@@ -20,6 +19,7 @@ export default function RightHead({
    price: number
    warranty?: number
    manufacturerPageUrl?: string
+   children?: React.ReactNode
 }) {
    return (
       <RightHeadStyle>
@@ -28,7 +28,7 @@ export default function RightHead({
          </Typography>
          <Divider variant='fullWidth' color='primary.main' />
          <PriceAndCartStyle>
-            <AddToCart />
+            {children}
             <Typography variant='h4' fontWeight={500}>
                {price.toLocaleString()} Ft
             </Typography>

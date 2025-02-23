@@ -1,48 +1,57 @@
-import dynamic from 'next/dynamic'
-
 import TopNavigation from '@/Details/TopNavigation/TopNavigation'
 import RightHead from '@/Details/RightHead/RightHead'
 import BodySection from '@/Details/Body/Body'
 import Chart from '@/Details/Chart/Chart'
 import Rating from '@/Details/Rating/Rating'
-const ImageSlider = dynamic(() => import('@/Details/ImageSlider/ImageSlider'))
+import ImageSlider from '@/Details/ImageSlider/ImageSlider'
+import AddToCart from '@/Details/AddToCart/AddToCart'
 
 import { HeadSection, DetailsContainer } from './style'
 
 import type { CpuType } from '@/models/Cpu/cpuTypes'
 import type { VgaType } from '@/models/Vga/vgaTypes'
+import type { MemoryProductType } from '@/models/Memory/memoryTypes'
 
 export default function DetailsPage({
-   details,
+   details: product,
    DetailsTableComponent,
    productType = 'vga',
 }: {
-   details: CpuType | VgaType
+   details: CpuType | VgaType | MemoryProductType
    DetailsTableComponent: React.ReactNode
    productType: string
 }) {
    return (
       <DetailsContainer>
-         <TopNavigation productType={productType} type={details.type} />
+         <TopNavigation productType={productType} type={product.type} />
          <HeadSection>
             <ImageSlider
-               pictureUrls={details.pictureUrls}
-               type={details.type}
-               typeCode={details.typeCode as string}
-               manufacturer={details.manufacturer}
+               pictureUrls={product.pictureUrls}
+               type={product.type}
+               typeCode={product.typeCode as string}
+               manufacturer={product.manufacturer}
             />
             <RightHead
-               manufacturer={details.manufacturer}
-               type={details.type}
-               typeCode={details.typeCode as string}
-               price={details.price}
-               warranty={details.details.warranity}
-               manufacturerPageUrl={details.details.manufacturerPageUrl}
-            />
+               manufacturer={product.manufacturer}
+               type={product.type}
+               typeCode={product.typeCode as string}
+               price={product.price}
+               warranty={product.details.warranity}
+               manufacturerPageUrl={product.details.manufacturerPageUrl}
+            >
+               <AddToCart
+                  manufacturer={product.manufacturer}
+                  type={product.type}
+                  price={product.price}
+                  pictureUrl={product.pictureUrls[0]}
+                  productId={product._id}
+                  productType={productType}
+               />
+            </RightHead>
          </HeadSection>
-         <BodySection description={details.details.description} ProductDetailsTable={DetailsTableComponent} />
-         <Chart chartData={details.details.chartData} />
-         <Rating comments={details.ratingValues} />
+         <BodySection description={product.details.description} ProductDetailsTable={DetailsTableComponent} />
+         <Chart chartData={product.details.chartData} />
+         <Rating comments={product.ratingValues} />
       </DetailsContainer>
    )
 }
