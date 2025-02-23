@@ -35,11 +35,15 @@ const NavMenu = ({
                'aria-labelledby': 'basic-button',
             }}
          >
-            <MenuItem onClick={closeBothMenuAndNavMenu}>
-               <Link href={'/shop/vga'}>Videókártya</Link>
-            </MenuItem>
-            <MenuItem onClick={closeBothMenuAndNavMenu}>Alaplap</MenuItem>
-            <MenuItem onClick={closeBothMenuAndNavMenu}>Processzor</MenuItem>
+            <Link href={'/shop/vga'}>
+               <MenuItem onClick={closeBothMenuAndNavMenu}>Videókártya</MenuItem>
+            </Link>
+            <Link href={'/shop/cpu'}>
+               <MenuItem onClick={closeBothMenuAndNavMenu}>Processzorok</MenuItem>
+            </Link>
+            <Link href={'/shop/memory'}>
+               <MenuItem onClick={closeBothMenuAndNavMenu}>Memória (RAM)</MenuItem>
+            </Link>
          </Menu>
       </>
    )
