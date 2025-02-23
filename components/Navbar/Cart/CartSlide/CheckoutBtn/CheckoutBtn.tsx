@@ -1,28 +1,17 @@
-import { auth } from '@NextAuth'
+'use client'
+import { useSession } from 'next-auth/react'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
+import TooltipContent from './TooltipContent'
 
-const TooltipContent = () => {
-   return (
-      <>
-         <Typography gutterBottom variant='caption' textAlign='center'>
-            Kérlek jelentkezz be a tovább lépéshez!
-         </Typography>
-         <Button fullWidth variant='text' color='primary'>
-            Vagy regisztrálj!
-         </Button>
-      </>
-   )
-}
+export default function CheckoutBtn() {
+   const { data: session } = useSession()
 
-export default async function CheckoutBtn() {
-   const session = await auth()
    if (!session)
       return (
          <Tooltip title={<TooltipContent />} placement='top' arrow>
-            <span>
+            <div>
                <Button
                   fullWidth
                   disabled={true}
@@ -32,7 +21,7 @@ export default async function CheckoutBtn() {
                >
                   Tovább a megrendeléshez
                </Button>
-            </span>
+            </div>
          </Tooltip>
       )
 
