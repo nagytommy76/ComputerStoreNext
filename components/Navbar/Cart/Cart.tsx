@@ -1,12 +1,15 @@
 'use client'
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
+import { SessionProvider } from 'next-auth/react'
 
-import CartButton from './CartButton/CartButton'
 import CartSlide from './CartSlide/CartSlide'
+import CheckoutBtn from './CartSlide/CheckoutBtn/CheckoutBtn'
+const CartButton = dynamic(() => import('./CartButton/CartButton'), { ssr: false })
 
 import Drawer from '@mui/material/Drawer'
 
-export default function Cart({ children }: { children: React.ReactNode }) {
+export default function Cart() {
    const [isOpen, setIsOpen] = useState(false)
 
    const toggleDrawer = (newOpen: boolean) => () => {
@@ -22,7 +25,11 @@ export default function Cart({ children }: { children: React.ReactNode }) {
             open={isOpen}
             onClose={toggleDrawer(false)}
          >
-            <CartSlide toggleDrawer={toggleDrawer}>{children}</CartSlide>
+            <CartSlide toggleDrawer={toggleDrawer}>
+               <SessionProvider>
+                  <CheckoutBtn />
+               </SessionProvider>
+            </CartSlide>
          </Drawer>
       </>
    )
