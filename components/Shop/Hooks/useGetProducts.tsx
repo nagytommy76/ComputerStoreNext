@@ -4,11 +4,10 @@ import { useAppSelector, useAppDispatch } from '@/reduxStore/hooks'
 import { setProducts, setIsLoading } from '@/reduxStore/slices/ProductsSlice'
 
 import type { BaseFetchedProductType } from '@/types/productType'
-import type { VgaFilterSlice } from '@/components/Shop/Vga/types'
 
 export default function useGetProducts(
    productType: string,
-   productFilter: VgaFilterSlice,
+   productFilter: any,
    extraQueryParameters: string = '',
    enabled: boolean = false
 ) {
@@ -17,7 +16,7 @@ export default function useGetProducts(
 
    const queryFunction = async () => {
       const response = await fetch(
-         `/api/${productType}/get-all-vga?page=${filterOptions.page}&perPage=${
+         `/api/${productType}/get-all-${productType}?page=${filterOptions.page}&perPage=${
             filterOptions.perPage
          }&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${
             filterOptions.priceRange
