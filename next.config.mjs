@@ -33,9 +33,6 @@ const nextConfig = {
       ],
    },
    serverExternalPackages: ['mongoose'],
-   experimental: {
-      esmExternals: 'loose',
-   },
 }
 
 export default nextConfig
