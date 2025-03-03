@@ -32,6 +32,7 @@
          "@/Suspense/*": ["./components/Suspense/*"],
          "@/Details/*": ["./components/Details/*"],
          "@/utils/*": ["./app/utils/*"],
+         "@Checkout/*": ["./components/Checkout/*"],
          "@NextAuth": ["./utils/auth/auth.ts"]
       },
       "target": "ES2017"
