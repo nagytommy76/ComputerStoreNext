@@ -3,7 +3,9 @@ import { auth } from '@NextAuth'
 import { Metadata } from 'next'
 
 import StepsContainer from '@Checkout/Steps/StepsContainer'
+import AdressForm from '@Checkout/Steps/AdressForm/AdressForm'
 import { CheckoutContainer } from '@Checkout/Styles'
+import { ProductContainer } from '@Checkout/Products/Styles'
 
 export const metadata: Metadata = {
    title: 'Computer Store | Rendelés leadása',
@@ -24,10 +26,14 @@ export default async function page() {
    const session = await auth()
    const { user } = await getUserDetails(session?.user?.email || '')
 
+   const stepComponents = [<AdressForm key={0} />]
+
    return (
       <CheckoutContainer>
-         <StepsContainer userDetails={user.userDetails} />
-         <h1>CHECKOUT</h1>
+         <StepsContainer userDetails={user.userDetails} stepComponents={stepComponents} />
+         <ProductContainer>
+            <h1>PRODUCTS</h1>
+         </ProductContainer>
       </CheckoutContainer>
    )
 }
