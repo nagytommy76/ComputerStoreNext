@@ -1,19 +1,16 @@
 'use client'
 import useSteps from '../Hooks/useSteps'
+import CheckoutContextProvider from '../Context/CheckoutContext'
 
 import StepHeader from './StepHeader'
+import AdressForm from './AdressForm/AdressForm'
 import { StepsContainerStyle } from '../Styles'
-
 import type { UserDetailsTypes } from '@/types/userTypes'
 
-export default function StepsContainer({
-   userDetails,
-   stepComponents,
-}: {
-   userDetails: UserDetailsTypes | undefined
-   stepComponents: JSX.Element[]
-}) {
+export default function StepsContainer({ userDetails }: { userDetails: UserDetailsTypes | undefined }) {
    const { currentStep, nextStep, prevStep } = useSteps()
+
+   const stepComponents = [<AdressForm key={0} />]
 
    return (
       <StepsContainerStyle>
@@ -23,7 +20,9 @@ export default function StepsContainer({
             nextStep={nextStep}
             prevStep={prevStep}
          />
-         <div style={{ minHeight: '50vh' }}>{stepComponents[currentStep]}</div>
+         <CheckoutContextProvider userDetails={userDetails}>
+            <div style={{ minHeight: '50vh' }}>{stepComponents[currentStep]}</div>
+         </CheckoutContextProvider>
       </StepsContainerStyle>
    )
 }
