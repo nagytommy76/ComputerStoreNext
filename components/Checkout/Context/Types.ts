@@ -17,6 +17,8 @@ export interface ICheckoutState {
 
 // CONTEXT
 export interface ICheckoutContext {
+   isUserDetailsSet: boolean
+   email: string
    checkoutReducer: ICheckoutState
    checkoutDispatch: React.Dispatch<ICheckoutAction>
 }
