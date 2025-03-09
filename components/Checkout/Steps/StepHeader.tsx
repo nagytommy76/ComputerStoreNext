@@ -1,4 +1,6 @@
 'use client'
+import { useContext } from 'react'
+import { CheckoutContext } from '../Context/CheckoutContext'
 
 import Tooltip from '@mui/material/Tooltip'
 import Stepper from '@mui/material/Stepper'
@@ -11,13 +13,13 @@ export default function StepHeader({
    currentStep,
    nextStep,
    prevStep,
-   isUserDetailsFilled = false,
 }: {
    nextStep: () => void
    prevStep: () => void
    currentStep: number
-   isUserDetailsFilled?: boolean
 }) {
+   const { isUserDetailsSet } = useContext(CheckoutContext)
+
    return (
       <div>
          <Stepper activeStep={currentStep} alternativeLabel>
@@ -37,7 +39,7 @@ export default function StepHeader({
          <Box sx={{ display: 'flex', flexDirection: 'row', mr: 5, ml: 5, mt: 2, mb: 4 }}>
             <Button onClick={prevStep}>Vissza</Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            {isUserDetailsFilled ? (
+            {isUserDetailsSet ? (
                <Button onClick={nextStep}>{currentStep === 3 ? 'Véglegesítés' : 'Következő'}</Button>
             ) : (
                <Tooltip title={<p>Kötelező kitölteni a személyes adatokat a tovább lépéshez!</p>} arrow>
