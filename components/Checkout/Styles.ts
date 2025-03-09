@@ -10,3 +10,11 @@ export const CheckoutContainer = styled('section')({
    justifyContent: 'center',
    width: '100%',
 })
+
+export const StepsContainerStyle = styled('div')({
+   width: '50%',
+   display: 'flex',
+   flexDirection: 'column',
+   alignItems: 'center',
+   justifyContent: 'center',
+})

@@ -1,7 +1,7 @@
 'use client'
 import { styled } from '@mui/material/styles'
 
-export const AdressFromStyle = styled('div')({
+export const AdressFromStyle = styled('form')({
    width: '100%',
    display: 'flex',
    flexDirection: 'column',
@@ -10,8 +10,9 @@ export const AdressFromStyle = styled('div')({
 })
 
 export const FormControlRow = styled('div')({
-   //    width: '85%',
+   width: '100%',
    display: 'flex',
    flexDirection: 'row',
+   gap: '1rem',
    justifyContent: 'space-evenly',
 })
