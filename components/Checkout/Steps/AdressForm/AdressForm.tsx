@@ -1,162 +1,51 @@
 'use client'
+import CreateUserDetails from '@/serverActions/User/CreateUserDetails'
+
 import { useContext } from 'react'
 import { CheckoutContext } from '../../Context/CheckoutContext'
 import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
+import InputField from './InputField'
 import { FormControlRow, AdressFromStyle } from './Styles'
 
 export default function AdressForm() {
    const {
       checkoutReducer: { userDetails },
-      checkoutDispatch,
+      email,
+      isUserDetailsSet,
    } = useContext(CheckoutContext)
+   const createUserDetailsWithEmail = CreateUserDetails.bind(null, email)
+
    return (
-      <AdressFromStyle>
+      <AdressFromStyle action={createUserDetailsWithEmail}>
          <Typography variant='h4'>Számlázási adatok</Typography>
          <FormControlRow>
-            <TextField
-               id='firstName'
-               fullWidth
-               variant='filled'
-               required
-               label='Vezetéknév'
-               margin='dense'
-               value={userDetails.firstName}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'firstName', value: e.target.value },
-                  })
-               }
-            />
-            <TextField
-               id='lastName'
-               fullWidth
-               variant='filled'
-               required
-               label='Keresztnév'
-               margin='dense'
-               value={userDetails.lastName}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'lastName', value: e.target.value },
-                  })
-               }
-            />
+            <InputField id='firstName' label='Vezetéknév' value={userDetails.firstName} />
+            <InputField id='lastName' label='Keresztnev' value={userDetails.lastName} />
          </FormControlRow>
          <FormControlRow>
-            <TextField
-               id='phone'
-               fullWidth
-               variant='filled'
-               required
-               label='Telefonszám'
-               margin='dense'
-               value={userDetails.phone}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'phone', value: e.target.value },
-                  })
-               }
-            />
-            <TextField
-               id='zipCode'
-               fullWidth
-               variant='filled'
-               required
-               label='Irányítószám'
-               margin='dense'
-               value={userDetails.address.zipCode}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'zipCode', value: e.target.value },
-                  })
-               }
-            />
+            <InputField id='phone' label='Telefonszám' value={userDetails.phone} />
+            <InputField id='zipCode' label='Irányítószám' value={userDetails.address.zipCode} />
          </FormControlRow>
          <FormControlRow>
-            <TextField
-               id='city'
-               fullWidth
-               variant='filled'
-               required
-               label='Város'
-               margin='dense'
-               value={userDetails.address.city}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'city', value: e.target.value },
-                  })
-               }
-            />
-            <TextField
-               id='street'
-               fullWidth
-               variant='filled'
-               required
-               label='Utca'
-               margin='dense'
-               value={userDetails.address.street}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'street', value: e.target.value },
-                  })
-               }
-            />
+            <InputField id='city' label='Város' value={userDetails.address.city} />
+            <InputField id='street' label='Utca' value={userDetails.address.street} />
          </FormControlRow>
          <FormControlRow>
-            <TextField
-               id='houseNumber'
-               fullWidth
-               variant='filled'
-               required
-               label='Házszám'
-               margin='dense'
-               value={userDetails.address.houseNumber}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'houseNumber', value: e.target.value },
-                  })
-               }
-            />
-            <TextField
-               id='floor'
-               fullWidth
-               variant='filled'
-               required
-               label='Emelet'
-               margin='dense'
-               value={userDetails.address.floor}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'floor', value: e.target.value },
-                  })
-               }
-            />
-            <TextField
-               id='door'
-               fullWidth
-               variant='filled'
-               required
-               label='Ajtó'
-               margin='dense'
-               value={userDetails.address.door}
-               onChange={(e) =>
-                  checkoutDispatch({
-                     type: 'SET_DETAIL_FIELD',
-                     payload: { field: 'door', value: e.target.value },
-                  })
-               }
-            />
+            <InputField id='houseNumber' label='Házszám' value={userDetails.address.houseNumber} />
+            <InputField id='floor' label='Emelet' value={userDetails.address.floor} required={false} />
+            <InputField id='door' label='Ajtó' value={userDetails.address.door} required={false} />
          </FormControlRow>
+         {isUserDetailsSet ? (
+            <Button sx={{ marginTop: '1rem' }} type='submit' variant='contained'>
+               Módosítás
+            </Button>
+         ) : (
+            <Button sx={{ marginTop: '1rem' }} type='submit' variant='contained'>
+               Bevitel
+            </Button>
+         )}
       </AdressFromStyle>
    )
 }
