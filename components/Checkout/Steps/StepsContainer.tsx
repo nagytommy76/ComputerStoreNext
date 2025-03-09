@@ -7,20 +7,21 @@ import AdressForm from './AdressForm/AdressForm'
 import { StepsContainerStyle } from '../Styles'
 import type { UserDetailsTypes } from '@/types/userTypes'
 
-export default function StepsContainer({ userDetails }: { userDetails: UserDetailsTypes | undefined }) {
+export default function StepsContainer({
+   userDetails,
+   email,
+}: {
+   userDetails: UserDetailsTypes | undefined
+   email: string
+}) {
    const { currentStep, nextStep, prevStep } = useSteps()
 
    const stepComponents = [<AdressForm key={0} />]
 
    return (
       <StepsContainerStyle>
-         <StepHeader
-            isUserDetailsFilled={userDetails ? true : false}
-            currentStep={currentStep}
-            nextStep={nextStep}
-            prevStep={prevStep}
-         />
-         <CheckoutContextProvider userDetails={userDetails}>
+         <CheckoutContextProvider userDetails={userDetails} email={email}>
+            <StepHeader currentStep={currentStep} nextStep={nextStep} prevStep={prevStep} />
             <div style={{ minHeight: '50vh' }}>{stepComponents[currentStep]}</div>
          </CheckoutContextProvider>
       </StepsContainerStyle>
