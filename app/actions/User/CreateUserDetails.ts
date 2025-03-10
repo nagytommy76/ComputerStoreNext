@@ -2,6 +2,7 @@
 import dbConnect from '@DBConnect'
 import UserModel from '@Models/User/User'
 import GoogleUserModel from '@Models/User/GoogleUser'
+import { revalidatePath } from 'next/cache'
 
 export default async function CreateUserDetails(email: string, formData: FormData) {
    const userDetails = {
@@ -17,14 +18,19 @@ export default async function CreateUserDetails(email: string, formData: FormDat
          door: formData.get('door'),
       },
    }
+
    await dbConnect()
 
-   const foundUser = await UserModel.findOne({ email }).select(['userDetails', 'email', 'userName'])
+   const foundUser = await UserModel.findOne({ email }).select(['userDetails'])
    if (!foundUser) {
-      const foundGoogleUser = await GoogleUserModel.findOne({ email }).select([
-         'userDetails',
-         'email',
-         'name',
-      ])
+      const foundGoogleUser = await GoogleUserModel.findOne({ email }).select(['userDetails'])
+      foundGoogleUser.userDetails = userDetails
+      await foundGoogleUser.save()
    }
+
+   // foundUser.userDetails = userDetails
+   // await foundUser.save()
+   revalidatePath('/checkout')
+
+   return 200
 }
