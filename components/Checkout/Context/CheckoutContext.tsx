@@ -8,6 +8,9 @@ export const CheckoutContext = createContext<ICheckoutContext>({
    isUserDetailsSet: false,
    email: '',
    checkoutReducer: checkoutData,
+   setIsUserDetailsSet: function (): void {
+      throw new Error('Function not implemented.')
+   },
    checkoutDispatch: function (): void {
       throw new Error('Function not implemented.')
    },
@@ -33,7 +36,9 @@ export default function CheckoutContextProvider({
    }, [userDetails])
 
    return (
-      <CheckoutContext.Provider value={{ checkoutReducer, checkoutDispatch, isUserDetailsSet, email }}>
+      <CheckoutContext.Provider
+         value={{ checkoutReducer, checkoutDispatch, setIsUserDetailsSet, isUserDetailsSet, email }}
+      >
          {children}
       </CheckoutContext.Provider>
    )
