@@ -1,7 +1,7 @@
 'use client'
+import { useContext, useRef } from 'react'
 import CreateUserDetails from '@/serverActions/User/CreateUserDetails'
 
-import { useContext } from 'react'
 import { CheckoutContext } from '../../Context/CheckoutContext'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
@@ -10,15 +10,23 @@ import InputField from './InputField'
 import { FormControlRow, AdressFromStyle } from './Styles'
 
 export default function AdressForm() {
+   const formRef = useRef<HTMLFormElement>(null)
    const {
       checkoutReducer: { userDetails },
       email,
       isUserDetailsSet,
+      setIsUserDetailsSet,
    } = useContext(CheckoutContext)
-   const createUserDetailsWithEmail = CreateUserDetails.bind(null, email)
 
    return (
-      <AdressFromStyle action={createUserDetailsWithEmail}>
+      <AdressFromStyle
+         ref={formRef}
+         action={async (formData) => {
+            formRef.current?.reset()
+            const statusCode = await CreateUserDetails(email, formData)
+            if (statusCode === 200) setIsUserDetailsSet(true)
+         }}
+      >
          <Typography variant='h4'>Számlázási adatok</Typography>
          <FormControlRow>
             <InputField id='firstName' label='Vezetéknév' value={userDetails.firstName} />
