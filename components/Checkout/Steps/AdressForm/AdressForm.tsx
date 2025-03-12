@@ -23,8 +23,12 @@ export default function AdressForm() {
          ref={formRef}
          action={async (formData) => {
             formRef.current?.reset()
-            const statusCode = await CreateUserDetails(email, formData)
-            if (statusCode === 200) setIsUserDetailsSet(true)
+            if (!isUserDetailsSet) {
+               const statusCode = await CreateUserDetails(email, formData)
+               if (statusCode === 200) setIsUserDetailsSet(true)
+            } else {
+               console.log('Módosítás')
+            }
          }}
       >
          <Typography variant='h4'>Számlázási adatok</Typography>
