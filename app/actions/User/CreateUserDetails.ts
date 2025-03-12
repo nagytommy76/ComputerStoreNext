@@ -26,10 +26,11 @@ export default async function CreateUserDetails(email: string, formData: FormDat
       const foundGoogleUser = await GoogleUserModel.findOne({ email }).select(['userDetails'])
       foundGoogleUser.userDetails = userDetails
       await foundGoogleUser.save()
+   } else {
+      foundUser.userDetails = userDetails
+      await foundUser.save()
    }
 
-   // foundUser.userDetails = userDetails
-   // await foundUser.save()
    revalidatePath('/checkout')
 
    return 200
