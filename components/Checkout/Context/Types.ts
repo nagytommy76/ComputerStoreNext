@@ -1,4 +1,5 @@
 import type { UserDetailsTypes } from '@/types/userTypes'
+import type { Dispatch, SetStateAction } from 'react'
 
 export interface ISetUserDetails {
    type: 'SET_USER_DETAILS'
@@ -20,6 +21,7 @@ export interface ICheckoutContext {
    isUserDetailsSet: boolean
    email: string
    checkoutReducer: ICheckoutState
+   setIsUserDetailsSet: Dispatch<SetStateAction<boolean>>
    checkoutDispatch: React.Dispatch<ICheckoutAction>
 }
 
