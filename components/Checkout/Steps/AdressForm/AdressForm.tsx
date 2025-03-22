@@ -1,6 +1,7 @@
 'use client'
 import { useContext, useRef } from 'react'
 import CreateUserDetails from '@/serverActions/User/CreateUserDetails'
+import useErrors from './Hooks/useErrors'
 
 import { CheckoutContext } from '../../Context/CheckoutContext'
 import Typography from '@mui/material/Typography'
@@ -10,6 +11,7 @@ import InputField from './InputField'
 import { FormControlRow, AdressFromStyle } from './Styles'
 
 export default function AdressForm() {
+   const { errors, setErrorsHandler } = useErrors()
    const formRef = useRef<HTMLFormElement>(null)
    const {
       checkoutReducer: { userDetails },
@@ -24,8 +26,10 @@ export default function AdressForm() {
          action={async (formData) => {
             formRef.current?.reset()
             if (!isUserDetailsSet) {
-               const statusCode = await CreateUserDetails(email, formData)
-               if (statusCode === 200) setIsUserDetailsSet(true)
+               const data = await CreateUserDetails(email, formData)
+               if (data !== 200) {
+                  setErrorsHandler(data.errors)
+               } else setIsUserDetailsSet(true)
             } else {
                console.log('Módosítás')
             }
@@ -37,8 +41,18 @@ export default function AdressForm() {
             <InputField id='lastName' label='Keresztnev' value={userDetails.lastName} />
          </FormControlRow>
          <FormControlRow>
-            <InputField id='phone' label='Telefonszám' value={userDetails.phone} />
-            <InputField id='zipCode' label='Irányítószám' value={userDetails.address.zipCode} />
+            <InputField
+               id='phone'
+               label='Telefonszám'
+               value={userDetails.phone}
+               errorHelperText={errors.phone}
+            />
+            <InputField
+               id='zipCode'
+               label='Irányítószám'
+               value={userDetails.address.zipCode}
+               errorHelperText={errors.zipCode}
+            />
          </FormControlRow>
          <FormControlRow>
             <InputField id='city' label='Város' value={userDetails.address.city} />
