@@ -7,11 +7,13 @@ export default function InputField({
    label,
    value,
    required = true,
+   errorHelperText = undefined,
 }: {
    id: string
    label: string
    value: string | number | undefined
    required?: boolean
+   errorHelperText?: string[] | undefined
 }) {
    const { checkoutDispatch } = useContext(CheckoutContext)
    return (
@@ -24,6 +26,8 @@ export default function InputField({
          label={label}
          margin='dense'
          value={value}
+         error={errorHelperText !== undefined}
+         helperText={errorHelperText ? errorHelperText[0] : ''}
          onChange={(e) =>
             checkoutDispatch({
                type: 'SET_DETAIL_FIELD',
