@@ -10,9 +10,11 @@ import type { UserDetailsTypes } from '@/types/userTypes'
 export default function StepsContainer({
    userDetails,
    email,
+   provider = 'credentials',
 }: {
    userDetails: UserDetailsTypes | undefined
    email: string
+   provider?: 'google' | 'facebook' | 'credentials'
 }) {
    const { currentStep, nextStep, prevStep } = useSteps()
 
@@ -20,7 +22,7 @@ export default function StepsContainer({
 
    return (
       <StepsContainerStyle>
-         <CheckoutContextProvider userDetails={userDetails} email={email}>
+         <CheckoutContextProvider provider={provider} userDetails={userDetails} email={email}>
             <StepHeader currentStep={currentStep} nextStep={nextStep} prevStep={prevStep} />
             <div style={{ minHeight: '50vh' }}>{stepComponents[currentStep]}</div>
          </CheckoutContextProvider>
