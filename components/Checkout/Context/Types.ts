@@ -9,8 +9,12 @@ export interface ISetDetailField {
    type: 'SET_DETAIL_FIELD'
    payload: { field: string; value: string }
 }
+export interface ISetProvider {
+   type: 'SET_PROVIDER'
+   payload: { field: string; value: 'credentials' | 'google' | 'facebook' }
+}
 
-export type ICheckoutAction = ISetUserDetails | ISetDetailField
+export type ICheckoutAction = ISetUserDetails | ISetDetailField | ISetProvider
 
 export interface ICheckoutState {
    userDetails: UserDetailsTypes
@@ -18,6 +22,7 @@ export interface ICheckoutState {
 
 // CONTEXT
 export interface ICheckoutContext {
+   authProvider: 'credentials' | 'google' | 'facebook'
    isUserDetailsSet: boolean
    email: string
    checkoutReducer: ICheckoutState
@@ -31,7 +36,7 @@ export const checkoutData: ICheckoutState = {
       lastName: '',
       phone: '',
       address: {
-         zipCode: 0,
+         zipCode: '',
          city: '',
          street: '',
          houseNumber: '',

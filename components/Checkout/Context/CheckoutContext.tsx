@@ -5,6 +5,7 @@ import { checkoutData, type ICheckoutContext } from './Types'
 import type { UserDetailsTypes } from '@/types/userTypes'
 
 export const CheckoutContext = createContext<ICheckoutContext>({
+   authProvider: 'credentials',
    isUserDetailsSet: false,
    email: '',
    checkoutReducer: checkoutData,
@@ -20,10 +21,12 @@ export default function CheckoutContextProvider({
    userDetails,
    children,
    email,
+   provider,
 }: {
    userDetails?: UserDetailsTypes
    children: React.ReactNode
    email: string
+   provider: 'google' | 'facebook' | 'credentials'
 }) {
    const [checkoutReducer, checkoutDispatch] = useReducer(CheckoutReducer, checkoutData)
    const [isUserDetailsSet, setIsUserDetailsSet] = useState(false)
@@ -37,7 +40,14 @@ export default function CheckoutContextProvider({
 
    return (
       <CheckoutContext.Provider
-         value={{ checkoutReducer, checkoutDispatch, setIsUserDetailsSet, isUserDetailsSet, email }}
+         value={{
+            authProvider: provider,
+            checkoutReducer,
+            checkoutDispatch,
+            setIsUserDetailsSet,
+            isUserDetailsSet,
+            email,
+         }}
       >
          {children}
       </CheckoutContext.Provider>
