@@ -6,8 +6,13 @@ import { revalidatePath } from 'next/cache'
 
 import { extractFormData, validatedFormData } from './UserDetails'
 import AddressForm from '@/Validators/AddressForm'
+import type { ProviderType } from '@/types/userTypes'
 
-export default async function CreateUserDetails(email: string, formData: FormData) {
+export default async function CreateUserDetails(
+   email: string,
+   authProvider: ProviderType,
+   formData: FormData
+) {
    const userDetails = extractFormData(formData)
    const validatedFields = AddressForm().safeParse(userDetails)
    if (!validatedFields.success) {
@@ -18,16 +23,18 @@ export default async function CreateUserDetails(email: string, formData: FormDat
 
    await dbConnect()
 
-   const foundUser = await UserModel.findOne({ email }).select(['userDetails'])
-   if (!foundUser) {
-      const foundGoogleUser = await GoogleUserModel.findOne({ email }).select(['userDetails'])
-      foundGoogleUser.userDetails = validatedFormData(validatedFields)
-      await foundGoogleUser.save()
-   } else {
-      foundUser.userDetails = validatedFormData(validatedFields)
-      await foundUser.save()
+   switch (authProvider) {
+      case 'google':
+         const googleUser = await GoogleUserModel.findOne({ email }).select(['userDetails'])
+         googleUser.userDetails = validatedFormData(validatedFields)
+         await googleUser.save()
+         break
+      default:
+         const user = await UserModel.findOne({ email }).select(['userDetails'])
+         user.userDetails = validatedFormData(validatedFields)
+         await user.save()
+         break
    }
-
    revalidatePath('/checkout')
 
    return 200
