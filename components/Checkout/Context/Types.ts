@@ -1,4 +1,4 @@
-import type { UserDetailsTypes } from '@/types/userTypes'
+import type { ProviderType, UserDetailsTypes } from '@/types/userTypes'
 import type { Dispatch, SetStateAction } from 'react'
 
 export interface ISetUserDetails {
@@ -11,7 +11,7 @@ export interface ISetDetailField {
 }
 export interface ISetProvider {
    type: 'SET_PROVIDER'
-   payload: { field: string; value: 'credentials' | 'google' | 'facebook' }
+   payload: { field: string; value: ProviderType }
 }
 
 export type ICheckoutAction = ISetUserDetails | ISetDetailField | ISetProvider
@@ -22,7 +22,7 @@ export interface ICheckoutState {
 
 // CONTEXT
 export interface ICheckoutContext {
-   authProvider: 'credentials' | 'google' | 'facebook'
+   authProvider: ProviderType
    isUserDetailsSet: boolean
    email: string
    checkoutReducer: ICheckoutState

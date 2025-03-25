@@ -2,6 +2,7 @@ import { createContext, useReducer, useEffect, useState } from 'react'
 import CheckoutReducer from './CheckoutReducer'
 
 import { checkoutData, type ICheckoutContext } from './Types'
+import type { ProviderType } from '@Types/userTypes'
 import type { UserDetailsTypes } from '@/types/userTypes'
 
 export const CheckoutContext = createContext<ICheckoutContext>({
@@ -26,7 +27,7 @@ export default function CheckoutContextProvider({
    userDetails?: UserDetailsTypes
    children: React.ReactNode
    email: string
-   provider: 'google' | 'facebook' | 'credentials'
+   provider: ProviderType
 }) {
    const [checkoutReducer, checkoutDispatch] = useReducer(CheckoutReducer, checkoutData)
    const [isUserDetailsSet, setIsUserDetailsSet] = useState(false)
