@@ -1,4 +1,5 @@
 import { JWT } from 'next-auth/jwt'
+import { ProviderType } from '@Types/userTypes'
 
 declare module 'next-auth' {
    /**
@@ -14,6 +15,7 @@ declare module 'next-auth' {
       picture?: string
       name?: string
       userId?: string
+      provider: ProviderType
    }
 }
 declare module 'next-auth/jwt' {
@@ -22,6 +24,7 @@ declare module 'next-auth/jwt' {
       email: string
       userId: string
       userName: string
+      provider: ProviderType
       isAdmin?: boolean
       exp?: number
       iat?: number

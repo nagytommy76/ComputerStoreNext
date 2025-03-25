@@ -23,19 +23,20 @@ export default {
             token.email = user.email as string
             token.isAdmin = user.isAdmin
             token.isEmailConfirmed = user.isEmailConfirmed
+            token.provider = user.provider
          }
          return token
       },
       async session({ session, token }) {
-         session.user.userId = token.userId as string
+         session.user.userId = token.userId
          session.user.id = token.id as string
-         session.user.userName = token.userName as string
-         session.user.email = token.email as string
+         session.user.userName = token.userName
+         session.user.email = token.email
          session.user.isAdmin = token.isAdmin as boolean
          session.user.isEmailConfirmed = token.isEmailConfirmed as boolean
          session.user.picture = token.picture as string
          session.user.name = token.name as string
-
+         session.user.provider = token.provider
          return session
       },
       async signIn({ account, profile }) {

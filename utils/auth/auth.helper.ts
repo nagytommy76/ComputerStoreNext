@@ -1,3 +1,4 @@
+import type { ProviderType } from '@/types/userTypes'
 import dbConnect from '@DBConnect'
 import UserModel from '@Models/User/User'
 
@@ -10,6 +11,7 @@ export default async function getUserByEmail(email?: string) {
       'password',
       'isAdmin',
       'isEmailConfirmed',
+      'provider',
    ])) as {
       _id: string
       userName: string
@@ -17,6 +19,7 @@ export default async function getUserByEmail(email?: string) {
       password: string
       isAdmin: boolean
       isEmailConfirmed: boolean
+      provider: ProviderType
    }
    return user
 }

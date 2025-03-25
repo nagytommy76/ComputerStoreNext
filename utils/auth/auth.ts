@@ -32,6 +32,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                profileObject.email = foundUser.email
                profileObject.isAdmin = foundUser.isAdmin
                profileObject.isEmailConfirmed = foundUser.isEmailConfirmed
+               profileObject.provider = foundUser.provider
             }
             return profileObject
          },
