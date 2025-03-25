@@ -27,8 +27,11 @@ export default async function page() {
 
    return (
       <CheckoutContainer>
-         {/* Provider: majd az auth session-ból jön */}
-         <StepsContainer provider='credentials' userDetails={user.userDetails} email={user.email} />
+         <StepsContainer
+            provider={session?.user?.provider}
+            userDetails={user.userDetails}
+            email={user.email}
+         />
          <ProductContainer>
             <h1>PRODUCTS</h1>
          </ProductContainer>
