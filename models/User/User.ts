@@ -18,6 +18,11 @@ const UserSchema = new Schema<UserTypes>({
    isAdmin: { type: Boolean, default: false },
    isEmailConfirmed: { type: Boolean, default: false },
    ...UserDBDefinitions,
+}).add({
+   provider: {
+      type: String,
+      default: 'credentials',
+   },
 })
 
 const UserModel = models?.User || model<UserTypes>('User', UserSchema)

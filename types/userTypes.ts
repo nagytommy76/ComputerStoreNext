@@ -1,5 +1,7 @@
 import { ObjectId } from 'mongoose'
 
+export type ProviderType = 'google' | 'facebook' | 'credentials'
+
 export type GoogleUserTypes = {
    name: string
    family_name: string
@@ -8,7 +10,7 @@ export type GoogleUserTypes = {
    picture: string
    isEmailConfirmed: boolean
    providerAccountId: string
-   provider: string
+   provider: ProviderType
    cartItems: CartItemsType[]
    userDetails: UserDetailsTypes
    orders: UserOrders
@@ -23,6 +25,7 @@ export type UserTypes = {
    userDetails: UserDetailsTypes
    orders: UserOrders
    _id: string
+   provider: ProviderType
    iat?: number
    exp?: number
 }
@@ -32,7 +35,7 @@ export type UserDetailsTypes = {
    lastName: string
    phone: string
    address: {
-      zipCode: number
+      zipCode: string
       city: string
       street: string
       houseNumber: string
