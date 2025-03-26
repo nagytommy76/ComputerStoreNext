@@ -1,7 +1,9 @@
 'use client'
-import { useContext, useRef, useState } from 'react'
+import { useContext, useRef } from 'react'
 import CreateUserDetails from '@/serverActions/User/CreateUserDetails'
+import EditUserDetails from '@/serverActions/User/EditUserDetails'
 import useErrors from './Hooks/useErrors'
+import useSnackbar from './Hooks/useSnackbar'
 
 import { CheckoutContext } from '../../Context/CheckoutContext'
 import Typography from '@mui/material/Typography'
@@ -13,9 +15,9 @@ import FormInputs from './FormInputs'
 
 export default function AdressForm() {
    const { errors, setErrorsHandler } = useErrors()
-   const [snackbarOpen, setSnackbarOpen] = useState(false)
+   const { setSnackbar, snackbar, closeSnackbar } = useSnackbar()
    const formRef = useRef<HTMLFormElement>(null)
-   const { email, isUserDetailsSet, setIsUserDetailsSet } = useContext(CheckoutContext)
+   const { email, isUserDetailsSet, authProvider, setIsUserDetailsSet } = useContext(CheckoutContext)
 
    return (
       <>
@@ -24,15 +26,28 @@ export default function AdressForm() {
             action={async (formData) => {
                formRef.current?.reset()
                if (!isUserDetailsSet) {
-                  const data = await CreateUserDetails(email, formData)
-                  if (data !== 200) {
+                  const data = await CreateUserDetails(email, authProvider, formData)
+                  if (data.status === 400) {
                      setErrorsHandler(data.errors)
                   } else {
                      setIsUserDetailsSet(true)
-                     setSnackbarOpen(true)
+                     setSnackbar({
+                        open: true,
+                        message: 'Sikeres adat bevitel!',
+                        variant: 'success',
+                     })
                   }
                } else {
-                  console.log('Módosítás')
+                  const data = await EditUserDetails(email, authProvider, formData)
+                  if (data.status === 400) {
+                     setErrorsHandler(data.errors)
+                  } else {
+                     setSnackbar({
+                        open: true,
+                        message: 'Sikeres adat módosítás!',
+                        variant: 'info',
+                     })
+                  }
                }
             }}
          >
@@ -49,9 +64,10 @@ export default function AdressForm() {
             )}
          </AdressFromStyle>
          <SnackBar
-            snackbarOpen={snackbarOpen}
-            setSnackbarOpen={setSnackbarOpen}
-            message='Sikeres adat bevitel!'
+            snackbarOpen={snackbar.open}
+            closeSnackbar={closeSnackbar}
+            severity={snackbar.variant}
+            message={snackbar.message}
          />
       </>
    )
