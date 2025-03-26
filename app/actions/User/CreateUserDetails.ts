@@ -18,24 +18,35 @@ export default async function CreateUserDetails(
    if (!validatedFields.success) {
       return {
          errors: validatedFields.error.flatten().fieldErrors,
+         status: 400,
       }
    }
 
-   await dbConnect()
+   try {
+      await dbConnect()
 
-   switch (authProvider) {
-      case 'google':
-         const googleUser = await GoogleUserModel.findOne({ email }).select(['userDetails'])
-         googleUser.userDetails = validatedFormData(validatedFields)
-         await googleUser.save()
-         break
-      default:
-         const user = await UserModel.findOne({ email }).select(['userDetails'])
-         user.userDetails = validatedFormData(validatedFields)
-         await user.save()
-         break
+      switch (authProvider) {
+         case 'google':
+            const googleUser = await GoogleUserModel.findOne({ email }).select(['userDetails'])
+            googleUser.userDetails = validatedFormData(validatedFields)
+            await googleUser.save()
+            break
+         default:
+            const user = await UserModel.findOne({ email }).select(['userDetails'])
+            user.userDetails = validatedFormData(validatedFields)
+            await user.save()
+            break
+      }
+      revalidatePath('/checkout')
+
+      return {
+         errors: null,
+         status: 200,
+      }
+   } catch (error) {
+      return {
+         errors: error || null,
+         status: 500,
+      }
    }
-   revalidatePath('/checkout')
-
-   return 200
 }
