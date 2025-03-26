@@ -2,11 +2,11 @@
 import dbConnect from '@DBConnect'
 import UserModel from '@Models/User/User'
 import GoogleUserModel from '@Models/User/GoogleUser'
-import { revalidatePath } from 'next/cache'
 
 import { extractFormData, validatedFormData } from './UserDetails'
-import AddressForm from '@/Validators/AddressForm'
+import AddressForm, { type ZodAddressFormType } from '@/Validators/AddressForm'
 import type { ProviderType } from '@/types/userTypes'
+import type { Model } from 'mongoose'
 
 export default async function EditUserDetails(email: string, authProvider: ProviderType, formData: FormData) {
    const userDetails = extractFormData(formData)
@@ -14,38 +14,43 @@ export default async function EditUserDetails(email: string, authProvider: Provi
    if (!validatedFields.success) {
       return {
          errors: validatedFields.error.flatten().fieldErrors,
+         status: 400,
       }
    }
 
-   await dbConnect()
+   try {
+      await dbConnect()
 
-   switch (authProvider) {
-      case 'google':
-         await GoogleUserModel.updateOne(
-            {
-               email,
-            },
-            {
-               $set: {
-                  userDetails: validatedFormData(validatedFields),
-               },
-            }
-         )
-         break
-      default:
-         await UserModel.updateOne(
-            {
-               email,
-            },
-            {
-               $set: {
-                  userDetails: validatedFormData(validatedFields),
-               },
-            }
-         )
-         break
+      switch (authProvider) {
+         case 'google':
+            await ModifyUserDetails(GoogleUserModel, email, validatedFields)
+            break
+         default:
+            await ModifyUserDetails(UserModel, email, validatedFields)
+            break
+      }
+
+      return {
+         errors: null,
+         status: 200,
+      }
+   } catch (error) {
+      return {
+         errors: error || null,
+         status: 500,
+      }
    }
-   revalidatePath('/checkout')
+}
 
-   return 200
+async function ModifyUserDetails(UserModel: Model<any>, email: string, validatedFields: ZodAddressFormType) {
+   return await UserModel.updateOne(
+      {
+         email,
+      },
+      {
+         $set: {
+            userDetails: validatedFormData(validatedFields),
+         },
+      }
+   )
 }
