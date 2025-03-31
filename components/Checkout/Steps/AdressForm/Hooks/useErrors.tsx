@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-interface IErrorFields {
+export interface IErrorFields {
    firstName?: undefined | string[]
    lastName?: undefined | string[]
    phone?: undefined | string[]
@@ -23,7 +23,8 @@ export default function useErrors() {
       houseNumber: undefined,
    })
 
-   function setErrorsHandler(errors: IErrorFields) {
+   function setErrorsHandler(errors: IErrorFields | null) {
+      if (!errors) return
       setErrors({
          firstName: errors.firstName,
          lastName: errors.lastName,
