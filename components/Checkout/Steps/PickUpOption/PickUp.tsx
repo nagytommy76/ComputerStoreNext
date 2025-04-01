@@ -1,33 +1,37 @@
-import React from 'react'
+import { useContext } from 'react'
+import { CheckoutContext } from '../../Context/CheckoutContext'
 
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
-import { StyledPaper } from './Style'
+import { StyledPaper, PickUpContainer } from './Style'
 
 export default function PickUp() {
+   const {
+      checkoutReducer: { pickUpOption },
+      checkoutDispatch,
+   } = useContext(CheckoutContext)
+
+   const setPickUp = (option: 'inStore' | 'toHomeGLS' | 'foxPost') => {
+      checkoutDispatch({ type: 'SET_PICKUP_OPTION', payload: option })
+   }
+
    return (
-      <div
-         style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-         }}
-      >
+      <PickUpContainer>
          <FormControl component='fieldset' sx={{ width: '85%' }}>
             <FormLabel component='legend' sx={{ marginBottom: '.4rem' }}>
                Szállítási lehetőségek
             </FormLabel>
             <RadioGroup
                aria-label='pickUpOptions'
-               defaultValue='inStore'
+               defaultValue={pickUpOption}
                name='radio-buttons-group'
-               value={'inStore'}
-               onChange={() => {}}
+               value={pickUpOption}
+               onChange={(option) => {
+                  setPickUp(option.target.value as 'inStore' | 'toHomeGLS' | 'foxPost')
+               }}
             >
                <StyledPaper>
                   <FormControlLabel
@@ -52,6 +56,6 @@ export default function PickUp() {
                </StyledPaper>
             </RadioGroup>
          </FormControl>
-      </div>
+      </PickUpContainer>
    )
 }
