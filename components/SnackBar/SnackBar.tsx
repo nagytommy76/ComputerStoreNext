@@ -3,20 +3,20 @@ import Alert from '@mui/material/Alert'
 
 export default function SnackBar({
    message,
-   setSnackbarOpen,
+   closeSnackbar,
    snackbarOpen,
    severity = 'success',
 }: {
    message: string
    snackbarOpen: boolean
-   setSnackbarOpen: React.Dispatch<React.SetStateAction<boolean>>
+   closeSnackbar: () => void
    severity?: 'error' | 'info' | 'success' | 'warning'
 }) {
    const handleClose = (event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
       if (reason === 'clickaway') {
          return
       }
-      setSnackbarOpen(false)
+      closeSnackbar()
    }
 
    return (
