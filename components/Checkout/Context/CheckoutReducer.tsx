@@ -19,10 +19,10 @@ export default function FriendReducer(state: ICheckoutState, { payload, type }: 
                },
             },
          }
-      case 'SET_PROVIDER':
+      case 'SET_PICKUP_OPTION':
          return {
             ...state,
-            authProvider: payload.value,
+            pickUpOption: payload,
          }
       default:
          return state
