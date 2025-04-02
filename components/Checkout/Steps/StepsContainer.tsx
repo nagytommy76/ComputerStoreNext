@@ -6,6 +6,7 @@ import type { ProviderType } from '@/types/userTypes'
 import StepHeader from './StepHeader'
 import AdressForm from './AdressForm/AdressForm'
 import PickUp from './PickUpOption/PickUp'
+import Payment from './Payment/Payment'
 
 import { StepsContainerStyle } from '../Styles'
 import type { UserDetailsTypes } from '@/types/userTypes'
@@ -21,7 +22,7 @@ export default function StepsContainer({
 }) {
    const { currentStep, nextStep, prevStep } = useSteps()
 
-   const stepComponents = [<AdressForm key={0} />, <PickUp key={1} />]
+   const stepComponents = [<AdressForm key={0} />, <PickUp key={1} />, <Payment key={2} />]
 
    return (
       <StepsContainerStyle>
