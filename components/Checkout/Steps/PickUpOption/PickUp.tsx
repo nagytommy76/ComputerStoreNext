@@ -6,7 +6,7 @@ import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
-import { StyledPaper, PickUpContainer } from './Style'
+import { StyledPaper, Container } from '../Style'
 
 export default function PickUp() {
    const {
@@ -19,7 +19,7 @@ export default function PickUp() {
    }
 
    return (
-      <PickUpContainer>
+      <Container>
          <FormControl component='fieldset' sx={{ width: '85%' }}>
             <FormLabel component='legend' sx={{ marginBottom: '.4rem' }}>
                Szállítási lehetőségek
@@ -56,6 +56,6 @@ export default function PickUp() {
                </StyledPaper>
             </RadioGroup>
          </FormControl>
-      </PickUpContainer>
+      </Container>
    )
 }
