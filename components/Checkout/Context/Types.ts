@@ -15,11 +15,17 @@ export interface ISetPickUpOption {
    payload: 'inStore' | 'toHomeGLS' | 'foxPost'
 }
 
-export type ICheckoutAction = ISetUserDetails | ISetDetailField | ISetPickUpOption
+export interface ISetPaymentMethod {
+   type: 'SET_PAYMENT_METHOD'
+   payload: 'cashOnDelivery' | 'card'
+}
+
+export type ICheckoutAction = ISetUserDetails | ISetDetailField | ISetPickUpOption | ISetPaymentMethod
 
 export interface ICheckoutState {
    userDetails: UserDetailsTypes
    pickUpOption: 'inStore' | 'toHomeGLS' | 'foxPost'
+   paymentMethod: 'cashOnDelivery' | 'card'
 }
 
 // CONTEXT
@@ -47,4 +53,5 @@ export const checkoutData: ICheckoutState = {
       },
    },
    pickUpOption: 'inStore',
+   paymentMethod: 'cashOnDelivery',
 }
