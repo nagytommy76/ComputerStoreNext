@@ -24,6 +24,11 @@ export default function FriendReducer(state: ICheckoutState, { payload, type }: 
             ...state,
             pickUpOption: payload,
          }
+      case 'SET_PAYMENT_METHOD':
+         return {
+            ...state,
+            paymentMethod: payload,
+         }
       default:
          return state
    }
