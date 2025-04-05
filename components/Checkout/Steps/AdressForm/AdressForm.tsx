@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import SnackBar from '@/components/SnackBar/SnackBar'
 
-import { AdressFromStyle } from './Styles'
+import { AdressFromStyle, FormContainer } from './Styles'
 import FormInputs from './FormInputs'
 
 export default function AdressForm() {
@@ -20,19 +20,21 @@ export default function AdressForm() {
 
    return (
       <>
-         <AdressFromStyle action={(formData) => formAction(formData, setSnackbar)}>
-            <Typography variant='h4'>Számlázási adatok</Typography>
-            <FormInputs errors={errors} />
-            {isUserDetailsSet ? (
-               <Button sx={{ marginTop: '1rem' }} type='submit' variant='contained'>
-                  Módosítás
-               </Button>
-            ) : (
-               <Button sx={{ marginTop: '1rem' }} type='submit' variant='contained'>
-                  Bevitel
-               </Button>
-            )}
-         </AdressFromStyle>
+         <FormContainer>
+            <AdressFromStyle action={(formData) => formAction(formData, setSnackbar)}>
+               <Typography variant='h4'>Számlázási adatok</Typography>
+               <FormInputs errors={errors} />
+               {isUserDetailsSet ? (
+                  <Button sx={{ marginTop: '1rem' }} type='submit' variant='contained'>
+                     Módosítás
+                  </Button>
+               ) : (
+                  <Button sx={{ marginTop: '1rem' }} type='submit' variant='contained'>
+                     Bevitel
+                  </Button>
+               )}
+            </AdressFromStyle>
+         </FormContainer>
          <SnackBar
             snackbarOpen={snackbar.open}
             closeSnackbar={closeSnackbar}
