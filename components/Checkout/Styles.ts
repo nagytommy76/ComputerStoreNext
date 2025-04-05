@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 
 export const CheckoutContainer = styled('section')({
    minHeight: '100vh',
-   margin: '110px auto 0 auto',
+   margin: '0 auto 0 auto',
 
    display: 'flex',
    alignItems: 'center',
@@ -13,6 +13,7 @@ export const CheckoutContainer = styled('section')({
 
 export const StepsContainerStyle = styled('div')({
    width: '50%',
+   height: '100vh',
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'center',
