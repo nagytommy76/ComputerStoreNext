@@ -3,8 +3,8 @@ import { auth } from '@NextAuth'
 import { Metadata } from 'next'
 
 import StepsContainer from '@Checkout/Steps/StepsContainer'
+import Products from '@Checkout/Products/Products'
 import { CheckoutContainer } from '@Checkout/Styles'
-import { ProductContainer } from '@Checkout/Products/Styles'
 
 export const metadata: Metadata = {
    title: 'Computer Store | Rendelés leadása',
@@ -32,9 +32,7 @@ export default async function page() {
             userDetails={user.userDetails}
             email={user.email}
          />
-         <ProductContainer>
-            <h1>PRODUCTS</h1>
-         </ProductContainer>
+         <Products />
       </CheckoutContainer>
    )
 }
