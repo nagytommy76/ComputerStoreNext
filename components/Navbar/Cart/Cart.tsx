@@ -27,7 +27,7 @@ export default function Cart() {
          >
             <CartSlide toggleDrawer={toggleDrawer}>
                <SessionProvider>
-                  <CheckoutBtn />
+                  <CheckoutBtn setIsOpen={setIsOpen} />
                </SessionProvider>
             </CartSlide>
          </Drawer>
