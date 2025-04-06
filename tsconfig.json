@@ -30,6 +30,7 @@
          "@ShopComponents/*": ["./components/Shop/*"],
          "@/Services/*": ["./services/*"],
          "@/Suspense/*": ["./components/Suspense/*"],
+         "@/Navbar/*": ["./components/Navbar/*"],
          "@/Details/*": ["./components/Details/*"],
          "@/utils/*": ["./app/utils/*"],
          "@Checkout/*": ["./components/Checkout/*"],
