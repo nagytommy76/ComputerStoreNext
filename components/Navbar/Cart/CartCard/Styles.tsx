@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles'
 
 import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 
 export const CartCardStyle = styled(Card)(({}) => ({
@@ -10,14 +11,24 @@ export const CartCardStyle = styled(Card)(({}) => ({
 
    display: 'flex',
    flexDirection: 'row',
-   justifyContent: 'space-between',
    alignItems: 'center',
 }))
 
+export const CardContentStyle = styled(CardContent)(({}) => ({
+   height: '100%',
+   padding: '.5rem .8rem',
+
+   display: 'flex',
+   flexDirection: 'column',
+   justifyContent: 'space-between',
+
+   ['&:last-child']: { paddingBottom: '0' },
+}))
+
 export const CardActionsStyle = styled(CardActions)(({}) => ({
-   padding: '1rem 0',
+   padding: '.4rem 0',
 
    display: 'flex',
    flexDirection: 'row',
-   justifyContent: 'space-between',
+   alignContent: 'space-between',
 }))
