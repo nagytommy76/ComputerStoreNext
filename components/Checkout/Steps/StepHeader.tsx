@@ -40,13 +40,17 @@ export default function StepHeader({
             <Button onClick={prevStep}>Vissza</Button>
             <Box sx={{ flex: '1 1 auto' }} />
             {isUserDetailsSet ? (
-               <Button onClick={nextStep}>{currentStep === 3 ? 'Véglegesítés' : 'Következő'}</Button>
+               <>
+                  {currentStep === 3 ? (
+                     <Button disabled>Véglegesítés</Button>
+                  ) : (
+                     <Button onClick={nextStep}>Következő</Button>
+                  )}
+               </>
             ) : (
                <Tooltip title={<p>Kötelező kitölteni a személyes adatokat a tovább lépéshez!</p>} arrow>
                   <span>
-                     <Button onClick={nextStep} disabled={true}>
-                        {currentStep === 3 ? 'Véglegesítés' : 'Következő'}
-                     </Button>
+                     <Button disabled={true}>Következő</Button>
                   </span>
                </Tooltip>
             )}
