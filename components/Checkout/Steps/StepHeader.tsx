@@ -21,7 +21,7 @@ export default function StepHeader({
    const { isUserDetailsSet } = useContext(CheckoutContext)
 
    return (
-      <div>
+      <>
          <Stepper activeStep={currentStep} alternativeLabel>
             <Step>
                <StepLabel>Számlázási adatok megadása</StepLabel>
@@ -55,6 +55,6 @@ export default function StepHeader({
                </Tooltip>
             )}
          </Box>
-      </div>
+      </>
    )
 }
