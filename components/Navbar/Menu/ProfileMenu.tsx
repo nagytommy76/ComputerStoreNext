@@ -24,7 +24,12 @@ export default function ProfileMenu({
 
    return (
       <>
-         <Button aria-expanded={open ? 'true' : undefined} onClick={handleClick} color='inherit' size='large'>
+         <Button
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+            sx={{ color: '#FFF' }}
+            size='large'
+         >
             {profilePicture && (
                <Avatar sx={{ mr: 1 }} alt='Remy Sharp'>
                   <Image src={profilePicture} alt={userName} width={40} height={40} />
