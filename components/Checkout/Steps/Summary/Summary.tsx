@@ -6,6 +6,7 @@ import UserDetails from './UserDetails'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Card from '@mui/material/Card'
+import MakeOrder from './MakeOrder/MakeOrder'
 import { SummaryContainer } from './Styles'
 
 export default function Summary() {
@@ -23,6 +24,7 @@ export default function Summary() {
                </Typography>
             </CardContent>
          </Card>
+         <MakeOrder />
       </SummaryContainer>
    )
 }
