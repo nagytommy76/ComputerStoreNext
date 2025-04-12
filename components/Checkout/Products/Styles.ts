@@ -25,16 +25,20 @@ export const ProductImage = styled(Image)({
    objectFit: 'cover',
 })
 
-export const ItemsContainer = styled('div')({
+export const ItemsContainer = styled('div')(({ theme }) => ({
    width: '400px',
    height: '75vh',
    overflow: 'scroll',
+   overflowX: 'hidden',
 
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'center',
    gap: '1.25rem',
-})
+   [`@media (max-width: ${theme.breakpoints.values.sm}px)`]: {
+      width: '85%',
+   },
+}))
 
 export const FooterSection = styled('footer')({
    width: '100%',
@@ -55,6 +59,6 @@ export const PriceSection = styled(Typography)(({ theme }) => ({
    margin: '.5rem 0',
    letterSpacing: '2px',
    [theme.breakpoints.down('sm')]: {
-      fontSize: '1.4rem',
+      fontSize: '1rem',
    },
 }))
