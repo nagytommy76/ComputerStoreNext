@@ -10,6 +10,7 @@ import Payment from './Payment/Payment'
 import Summary from './Summary/Summary'
 
 import { StepsContainerStyle } from '../Styles'
+import { StepsStyle } from './Style'
 import type { UserDetailsTypes } from '@/types/userTypes'
 
 export default function StepsContainer({
@@ -33,10 +34,10 @@ export default function StepsContainer({
    return (
       <StepsContainerStyle>
          <CheckoutContextProvider provider={provider} userDetails={userDetails} email={email}>
-            <div style={{ height: '35%', width: '100%' }}>
+            <StepsStyle>
                <StepHeader currentStep={currentStep} nextStep={nextStep} prevStep={prevStep} />
                {stepComponents[currentStep]}
-            </div>
+            </StepsStyle>
          </CheckoutContextProvider>
       </StepsContainerStyle>
    )
