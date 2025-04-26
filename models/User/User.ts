@@ -1,5 +1,5 @@
 import type { UserTypes } from '@/types/userTypes'
-import { Schema, model, models } from 'mongoose'
+import { Model, Schema, model, models } from 'mongoose'
 import UserDBDefinitions from './userHelper'
 
 const UserSchema = new Schema<UserTypes>({
@@ -25,5 +25,5 @@ const UserSchema = new Schema<UserTypes>({
    },
 })
 
-const UserModel = models?.User || model<UserTypes>('User', UserSchema)
+const UserModel = (models?.User as Model<UserTypes>) || model<UserTypes>('User', UserSchema)
 export default UserModel

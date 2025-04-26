@@ -1,5 +1,5 @@
 import type { GoogleUserTypes } from '@/types/userTypes'
-import { Schema, model, models } from 'mongoose'
+import { Model, Schema, model, models } from 'mongoose'
 import UserDBDefinitions from './userHelper'
 
 const GoogleUserSchema = new Schema<GoogleUserTypes>({
@@ -14,6 +14,7 @@ const GoogleUserSchema = new Schema<GoogleUserTypes>({
    ...UserDBDefinitions,
 })
 
-const GoogleUserModel = models?.GoogleUser || model<GoogleUserTypes>('GoogleUser', GoogleUserSchema)
+const GoogleUserModel =
+   (models?.GoogleUser as Model<GoogleUserTypes>) || model<GoogleUserTypes>('GoogleUser', GoogleUserSchema)
 
 export default GoogleUserModel
