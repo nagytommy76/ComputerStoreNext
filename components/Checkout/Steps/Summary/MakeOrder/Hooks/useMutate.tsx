@@ -1,12 +1,27 @@
-import { useMutation } from '@tanstack/react-query'
+import { useContext } from 'react'
+import { CheckoutContext } from '../../../../Context/CheckoutContext'
 
-async function mutationFn() {
-   return fetch(`/api/order/make-order`, { method: 'GET' })
-}
+import { useMutation } from '@tanstack/react-query'
+import { useAppSelector } from '@/reduxStore/hooks'
 
 export default function useMutate() {
-   const mutation = useMutation({
+   const cartItems = useAppSelector((state) => state.cart.cartItems)
+   const totalPrice = useAppSelector((state) => state.cart.totalPrice)
+   const {
+      authProvider,
+      email,
+      checkoutReducer: { paymentMethod, pickUpOption },
+   } = useContext(CheckoutContext)
+
+   async function mutationFn() {
+      return await fetch(`/api/order/make-order`, {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ cartItems, totalPrice, paymentMethod, pickUpOption, authProvider, email }),
+      })
+   }
+
+   return useMutation({
       mutationFn,
    })
-   return mutation
 }
