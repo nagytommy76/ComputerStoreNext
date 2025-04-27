@@ -48,9 +48,11 @@ const CartSlice = createSlice({
             calculateTotalPriceAndQuantity(state)
          }
       },
+      setToDefaultState: () => initialState,
    },
 })
 
-export const { addToCart, decreaseItemQty, increaseItemQty, removeAllEntitesFromCart } = CartSlice.actions
+export const { addToCart, decreaseItemQty, increaseItemQty, removeAllEntitesFromCart, setToDefaultState } =
+   CartSlice.actions
 
 export default CartSlice.reducer
