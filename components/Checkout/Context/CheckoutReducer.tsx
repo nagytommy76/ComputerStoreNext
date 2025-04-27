@@ -1,4 +1,5 @@
 import type { ICheckoutAction, ICheckoutState } from './Types'
+import { checkoutData } from './Types'
 
 export default function FriendReducer(state: ICheckoutState, { payload, type }: ICheckoutAction) {
    switch (type) {
@@ -23,12 +24,19 @@ export default function FriendReducer(state: ICheckoutState, { payload, type }: 
          return {
             ...state,
             pickUpOption: payload,
+            deliveryPrice:
+               (payload === 'inStore' && 0) ||
+               (payload === 'toHomeGLS' && 990) ||
+               (payload === 'foxPost' && 880) ||
+               0,
          }
       case 'SET_PAYMENT_METHOD':
          return {
             ...state,
             paymentMethod: payload,
          }
+      case 'SET_TO_DEFAULT':
+         return checkoutData
       default:
          return state
    }
