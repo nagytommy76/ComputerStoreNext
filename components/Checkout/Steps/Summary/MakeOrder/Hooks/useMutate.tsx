@@ -39,6 +39,7 @@ export default function useMutate() {
       mutationFn,
       onSuccess(data) {
          console.log(data.status)
+         console.log(data)
          if (data.status === 200) {
             checkoutDispatch({ type: 'SET_TO_DEFAULT', payload: undefined })
             dispatch(setToDefaultState())

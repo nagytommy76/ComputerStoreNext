@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
    try {
       await dbConnect()
 
+      console.log(data)
       switch (data.authProvider) {
          case 'google':
             const googleUser = await GoogleUserModel.findOne({ email: data.email }).select(['orders'])
